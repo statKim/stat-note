@@ -1,0 +1,299 @@
+\documentclass[11pt]{book}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Useful packages and commands
+%%%%%%%%%%%%%%%%%%%%%%%%
+% packages
+\usepackage{amsmath,amssymb,amsthm}
+%\usepackage{times}
+%\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amscd}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{subfig}
+\usepackage{color}
+\usepackage{natbib}
+\usepackage{lscape}
+\usepackage{graphics}
+\usepackage{enumerate}
+%\usepackage{fancyvrb}
+%\usepackage{mathtools}
+\usepackage{verbatim}
+\usepackage{afterpage}
+%\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{hyperref}
+\usepackage[flushleft]{threeparttable}
+\usepackage{rotating}
+\usepackage{kotex}   % for Korean
+
+% new commands
+%\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+%\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\long\def\comment#1{}
+
+%\newtheorem*{thm}{Theorem}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newcommand{\rb}[1]{\raisebox{-.5em}[0pt]{#1}}
+% \renewcommand{\baselinestretch}{1.8}
+\renewcommand{\mid}{\, | \ }
+\newcommand{\eighth}{{\textstyle \frac{1}{8}}}
+
+\def \bY { \mathbf{ Y } }
+\def \bX { \mathbf{ X } }
+\def \bU { \mathbf{ U } }
+\def \bmu { \boldsymbol{ \mu } }
+\def \bSigma { \boldsymbol{ \Sigma } }
+\def \bphi { \boldsymbol{ \phi } }
+\def \bepsilon { \boldsymbol{ \epsilon } }
+\def \bD { \boldsymbol{\mathcal{D}} }
+
+\newcommand{\eqdis}{\overset{\mathrm{d}}{=\joinrel=}}
+\newcommand{\ba}{\mbox{\boldmath $a$}}
+\newcommand{\bg}{\mbox{\boldmath $g$}}
+\newcommand{\bx}{\mbox{\boldmath $x$}}
+\newcommand{\by}{\mbox{\boldmath $y$}}
+\newcommand{\bd}{\mbox{\boldmath $d$}}
+\newcommand{\bff}{\mbox{\boldmath $f$}}
+\newcommand{\bz}{\mbox{\boldmath $z$}}
+\newcommand{\bu}{\mbox{\boldmath $u$}}
+\newcommand{\bv}{\mbox{\boldmath $v$}}
+\newcommand{\bW}{\mbox{\boldmath $W$}}
+\newcommand{\bI}{\mbox{\boldmath $I$}}
+\newcommand{\bJ}{\mbox{\boldmath $J$}}
+\newcommand{\bL}{\mbox{\boldmath $L$}}
+\newcommand{\bQ}{\mbox{\boldmath $Q$}}
+\newcommand{\bZ}{\mbox{\boldmath $Z$}}
+\newcommand{\bV}{\mbox{\boldmath $V$}}
+\newcommand{\bG}{\mbox{\boldmath $G$}}
+\newcommand{\bdm}{\begin{displaymath}}
+\newcommand{\edm}{\end{displaymath}}
+\newcommand{\bnu}{\mbox{\boldmath $\nu$}}
+\newcommand{\btau}{\mbox{\boldmath $\tau$}}
+\newcommand{\biota}{\mbox{\boldmath $\iota$}}
+\newcommand{\bbeta}{\mbox{\boldmath $\beta$}}
+\newcommand{\bomega}{\mbox{\boldmath $\omega$}}
+\newcommand{\btheta}{\mbox{\boldmath $\theta$}}
+\newcommand{\bep}{\mbox{\boldmath $\epsilon$}}
+\newcommand{\bdelta}{\mbox{\boldmath $\delta$}}
+\newcommand{\balpha}{\mbox{\boldmath $\alpha$}}
+\newcommand{\bxi}{\mbox{\boldmath $\xi$}}
+\newcommand{\bgamma}{\mbox{\boldmath $\gamma$}}
+\newcommand{\bOmega}{\mbox{\boldmath $\Omega$}}
+\newcommand{\bPi}{\mbox{\boldmath $\Pi$}}
+\newcommand{\bzeta}{\mbox{\boldmath $\zeta$}}
+\newcommand{\bpsi}{\mbox{\boldmath $\psi$}}
+\newcommand{\bPsi}{\mbox{\boldmath $\Psi$}}
+\newcommand{\bl}{\mbox{\boldmath $l$}}
+\newcommand{\C}{{\rm Cov}}
+\newcommand{\bH}{\bold H}
+\newcommand{\blambda}{\mbox{\boldmath $\lambda$}}
+\newcommand{\bbh}{\bld h}
+
+
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.2}
+
+\pagestyle{fancy}
+\lhead{\leftmark}
+%\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\authorName}
+%\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%%
+%% Create Problem Sections
+%%
+%
+%\newcommand{\enterProblemHeader}[1]{
+%    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+%    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+%}
+%
+%\newcommand{\exitProblemHeader}[1]{
+%    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+%    \stepcounter{#1}
+%    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+%}
+%
+%\setcounter{secnumdepth}{0}
+%\newcounter{partCounter}
+%\newcounter{homeworkProblemCounter}
+%\setcounter{homeworkProblemCounter}{1}
+%\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+%
+%%
+%% Homework Problem Environment
+%%
+%% This environment takes an optional argument. When given, it will adjust the
+%% problem counter. This is useful for when the problems given for your
+%% assignment aren't sequential. See the last 3 problems of this template for an
+%% example.
+%%
+%\newenvironment{homeworkProblem}[1][-1]{
+%    \ifnum#1>0
+%        \setcounter{homeworkProblemCounter}{#1}
+%    \fi
+%    \section{Problem \arabic{homeworkProblemCounter}}
+%    \setcounter{partCounter}{1}
+%    \enterProblemHeader{homeworkProblemCounter}
+%}{
+%    \exitProblemHeader{homeworkProblemCounter}
+%}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+%\newcommand{\hmwkTitle}{}
+%\newcommand{\hmwkClass}{Theoretical Statistics: Topics for a Core Course\\ Solution}
+%\newcommand{\hmwkClassTime}{}
+%\newcommand{\hmwkClassInstructor}{Robert W. Keener}
+
+\newcommand{\courseTitle}{Theoretical Statistics: Topics for a Core Course}
+\newcommand{\bookAuthor}{Robert W. Keener}
+\newcommand{\authorName}{Hyunsung Kim}
+
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{1.5in}
+%    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \textmd{\textbf{\courseTitle}}\\
+%    \normalsize\vspace{0.1in}\hmwkDueDate\\
+    \vspace{0.1in}\large{\textit{\bookAuthor}}
+    \vspace{2in}
+}
+\date{Update: \today}
+\author{
+    {\sc \authorName} \\
+    Department of Statistics\\
+    Chung-Ang University
+}
+
+
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Specify level of toc(table of content)
+\setcounter{tocdepth}{0}
+
+% Setting for blank page appeared when begin new chapter
+\let\cleardoublepage=\clearpage
+
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+%\newtheorem{definition}{Definition}[section]
+
+
+%%% Main part
+\begin{document}
+
+% Title page
+\maketitle
+
+% Table of Contents
+\tableofcontents
+
+% Preface
+\addcontentsline{toc}{chapter}{Preface}
+\chapter*{Preface}
+%\section{Preface}
+This note contains the solution of the exercises in the textbook, {\em Theoretical Statistics: Topics for a Core Course}, and it was created by Hyunsung Kim, who is a Ph.D. student.
+I wrote it when I study a theoretical statistics based on this textbook on my own by solving some exercises and also referred to the solution manual in the textbook.
+
+It contains a few selected exercises in the textbook what I studied, and also note that it may not be the exact solutions.
+If you want to refer to this note, you should study with doubt about the answer.
+
+\section*{Textbook}
+\begin{itemize}
+	\item {\em Theoretical Statistics: Topics for a Core Course, Robert W. Keener}.
+\end{itemize}
+
+% Test file
+\input{Chapter/math_test.tex}
+
+% Chapter 1. Probability and Measure
+\input{Chapter/chapter1.tex}
+
+
+
+
+\end{document}
