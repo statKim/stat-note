@@ -107,7 +107,16 @@
 \newcommand{\bH}{\bold H}
 \newcommand{\blambda}{\mbox{\boldmath $\lambda$}}
 \newcommand{\bbh}{\bld h}
-
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\union}{\bigcup}
+\newcommand{\intersect}{\bigcap}
+\newcommand{\eqdef}{\overset{\mathrm{def}}{=}}
+\newcommand{\limn}{\lim_{n \to \infty}}
 
 
 %
@@ -190,7 +199,7 @@
 %\newcommand{\hmwkClassTime}{}
 %\newcommand{\hmwkClassInstructor}{Robert W. Keener}
 
-\newcommand{\courseTitle}{Theoretical Statistics: Topics for a Core Course\\ Exercise Solutions}
+\newcommand{\courseTitle}{Theoretical Statistics: Topics for a Core Course\\ Problem Solutions}
 \newcommand{\bookAuthor}{Robert W. Keener}
 \newcommand{\authorName}{Hyunsung Kim}
 
@@ -234,6 +243,8 @@
 
 % Integral dx
 \newcommand{\dx}{\mathrm{d}x}
+\newcommand{\dmu}{\mathrm{d}\mu}
+\newcommand{\dP}{\mathrm{d}P}
 
 % Alias for the Solution section header
 \newcommand{\solution}{\textbf{\large Solution}}
@@ -247,20 +258,23 @@
 % Specify level of toc(table of content)
 \setcounter{tocdepth}{0}
 
+% Specify level of Section number
+\setcounter{secnumdepth}{0}
+
 % Setting for blank page appeared when begin new chapter
 \let\cleardoublepage=\clearpage
 
-\setcounter{secnumdepth}{0}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{remark}[theorem]{Remark}
 \newtheorem{definition}[theorem]{Definition}
+
 \theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
 \newtheorem{example}[theorem]{Example}
-%\newtheorem{definition}{Definition}[section]
+%\newtheorem{problem}[theorem]{Problem}
 
 
 %%% Main part
@@ -273,26 +287,27 @@
 \tableofcontents
 
 % Preface
-\addcontentsline{toc}{chapter}{Preface}
-\chapter*{Preface}
-%\section{Preface}
-This note contains the solution of the exercises in the textbook, {\em Theoretical Statistics: Topics for a Core Course}, and it was created by Hyunsung Kim, who is a Ph.D. student.
-I wrote it when I study a theoretical statistics based on this textbook on my own by solving some exercises and also referred to the solution manual in the textbook.
-
-It contains a few selected exercises in the textbook what I studied, and also note that it may not be the exact solutions.
-If you want to refer to this note, you should study with doubt about the answer.
-
-\section*{Textbook}
-\begin{itemize}
-	\item {\em Theoretical Statistics: Topics for a Core Course, Robert W. Keener}.
-\end{itemize}
+\input{Chapter/preface.tex}
 
 % Test file
-\input{Chapter/math_test.tex}
+%\input{Chapter/math_test.tex}
 
 % Chapter 1. Probability and Measure
 \input{Chapter/chapter1.tex}
 
+
+%% 1.19
+\section{Problem 1.19}
+Let $P$ be a probability measure on $(\calE, \calB)$, and let $X$ be a random variable.
+Show that the distribution $P_X$ of $X$ defined by $P_X(B) = P(X \in B) = P(X^{-1}(B))$ is a measure (on the Borel sets of $\bbR$).
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+(i) $P_X(B) = P\big( X^{-1}(B) \big) \ge 0.$ \\
+(ii) From Problem 1.18, $X^{-1}\left( \union_i A_i \right) = \union_i X^{-1}(A_i)$ is hold. \\
+Also, if $B_i$ and $B_j$ are disjoint, then $X^{-1}(B_i)$ and $X^{-1}(B_j)$ are disjoint. ($\because$ If $e \in \calE$ lie in both $X^{-1}(B_1)$ and $X^{-1}(B_2)$, $X(e)$ lies in $B_1$ and $B_2$.) \\
+Therefore, for arbitrary disjoint set $B_1, B_2, \dots$ with union $B = \union_iB_i$, $X^{-1}(B_1), X^{-1}(B_2), \dots$ are also disjoint with union $X^{-1}(B)$.
+$$ \therefore \sum_i P_X(B_i) = \sum_i P\big(X^{-1}(B_i)\big) = P\big( X^{-1}(B)\big) = P_X(B). $$
+The above 2 conditions are hold, $P_X$ is a measure.
+\end{proof}
 
 
 
