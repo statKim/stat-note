@@ -1,4 +1,4 @@
-\documentclass[11pt]{book}
+\documentclass[10pt]{book}
 
 \usepackage{fancyhdr}
 \usepackage{extramarks}
@@ -301,13 +301,377 @@
 Let $P$ be a probability measure on $(\calE, \calB)$, and let $X$ be a random variable.
 Show that the distribution $P_X$ of $X$ defined by $P_X(B) = P(X \in B) = P(X^{-1}(B))$ is a measure (on the Borel sets of $\bbR$).
 \begin{proof}[\underline{\textbf{Solution}}] $\newline$
-(i) $P_X(B) = P\big( X^{-1}(B) \big) \ge 0.$ \\
-(ii) From Problem 1.18, $X^{-1}\left( \union_i A_i \right) = \union_i X^{-1}(A_i)$ is hold. \\
+To show that $P_X$ is a measure, we should check 2 conditions.
+\begin{itemize}
+	\item[(i)] $P_X(B) = P\big( X^{-1}(B) \big) \ge 0.$
+	\item[(ii)] From Problem 1.18, $X^{-1}\left( \union_i A_i \right) = \union_i X^{-1}(A_i)$ is hold. \\
 Also, if $B_i$ and $B_j$ are disjoint, then $X^{-1}(B_i)$ and $X^{-1}(B_j)$ are disjoint. ($\because$ If $e \in \calE$ lie in both $X^{-1}(B_1)$ and $X^{-1}(B_2)$, $X(e)$ lies in $B_1$ and $B_2$.) \\
 Therefore, for arbitrary disjoint set $B_1, B_2, \dots$ with union $B = \union_iB_i$, $X^{-1}(B_1), X^{-1}(B_2), \dots$ are also disjoint with union $X^{-1}(B)$.
 $$ \therefore \sum_i P_X(B_i) = \sum_i P\big(X^{-1}(B_i)\big) = P\big( X^{-1}(B)\big) = P_X(B). $$
+\end{itemize}
 The above 2 conditions are hold, $P_X$ is a measure.
 \end{proof}
+
+
+%% 1.21
+\section{Problem 1.21}
+Let $X$ have a uniform distribution on $(0, 1)$; that is, $X$ is absolutely continuous with density $p$ defined by
+$$
+p(x) = \begin{cases}
+1, ~~~ x \in (0, 1), \\
+0, ~~~ \text{otherwise.}
+\end{cases}
+$$
+Let $Y_1$ and $Y_2$ denote the first two digits of $X$ when $X$ is written as a binary decimal (so $Y_1 = 0$ if $X \in (0, 1/2)$ for instance).
+Find $P(Y_1 = i, Y_2 = j), ~ i=0$ or $1, j = 0$ or 1.
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+For all cases, the probability are same.
+In other words,
+$$ P(Y_1 = 0, Y_2 = 0) = P(Y_1 = 1, Y_2 = 0) = P(Y_1 = 0, Y_2 = 1) = P(Y_1 = 1, Y_2 = 1) = 1/4. $$
+\end{proof}
+
+
+%% 1.22
+\section{Problem 1.22}
+Let $\calE = (0,1)$, let $\calB$ be the Borel subsets of $\calE$, and let $P(A)$ be the length of $A$ for $A \in \calB$.
+($P$ would be called the {\em uniform probability measure} on $(0, 1)$.)
+Define the random variable $X$ by 
+$$ X(e) = \min\{e, 1/2\}. $$
+Let $\mu$ be the sum of Lebesgue measure on $\bbR$ and counting measure on $\calX_0 = \{1/2\}$.
+Show that the distribution $P_X$ of $X$ is absolutely continuous with respect to $\mu$ and find the density of $P_X$.
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+\vspace{-0.5cm}
+\begin{itemize}
+\item[(i)] \underline{Claim}: For any $B \in \bbR$,  $\mu(B) = 0 \Longrightarrow P_X(B) = 0.$
+    \begin{align*}
+    	\{X \in B\} &= \{y \in (0, 1) : X(y) \in B\} \\
+    		        &= \begin{cases}
+    		        		B \cap (0, 1/2), ~~~~~~~~~~~~~~~~~~  1/2 \not\in B, \\
+    				\big( B \cap (0, 1/2) \big) \cup [1/2, 1), ~~~ 1/2 \in B.
+    		        \end{cases}
+    \end{align*}
+    Let $\lambda$ be a Lebesgue measure and $\nu$ be a counting measure on $\{1/2\}$. Then,
+    $$\mu(B) = 0 \Longleftrightarrow \lambda(B) = 0 \text{ and } 1/2 \not\in B.  ~ (\mu(B) = \nu(B) = 0) $$
+    $$ \Longrightarrow P_X(B) = P(X \in B) = P\big( B \cap (0, 1/2) \big) = \lambda\big(  B\cap(0,1/2)\big) = 0. $$
+    $$ \therefore P_X \text{ is absolutely continuous w.r.t. } \lambda + \nu \eqdef \mu. $$
+
+\item[(ii)] Find the density of $P_X$. \\
+	From the above equation,
+	\begin{equation}\label{ex1_22}
+		P(X\in B) = \lambda\big( B\cap (0, 1/2) \big) + \frac{1}{2}1_B(1/2).
+	\end{equation}
+	If $f$ is the density, then \eqref{ex1_22} should be equal to $\int_B f d(\lambda + \nu)$.
+	\begin{align*}
+		\int_B f d(\lambda + \nu) &= \int f 1_B d(\lambda + \nu) \\
+                                    		  &= \int \left( 1_{B\cap (0, 1/2)} + \frac{1}{2} 1_{\{1/2\} \cap B} \right) d(\lambda + \nu) \\
+                                    		  &= \lambda\big(B\cap (0, 1/2)\big) + \nu\big(B\cap (0, 1/2)\big) + \frac{1}{2}\lambda\big(\{1/2\} \cap B\big) + \frac{1}{2}\nu\big(\{1/2\} \cap B\big) \\
+                            		  &= \lambda\big(B\cap (0, 1/2)\big) + \frac{1}{2}1_B(1/2).
+	\end{align*}
+	$$ \therefore f = 1_{(0, 1/2} + \frac{1}{2}1_{\{1/2\}}. $$
+\end{itemize}
+\end{proof}
+
+
+%% 1.23
+\section{Problem 1.23}
+The standard normal distribution $N(0,1)$ has density $\phi$ given by 
+$$ \phi(x) = \frac{e^{-x^2/2}}{\sqrt{w\pi}}, ~~~~~ x \in \bbR, $$
+with respect to Lebesgue measure $\lambda$ on $\bbR$.
+The corresponding cumulative distribution function is $\Phi$, so
+$$ \Phi(x) = \int_{-\infty}^x \phi(z)dz $$
+for $x \in \bbR$.
+Suppose that $X \sim N(0,1)$ and that the random variable $Y$ equals $X$ when $\lvert X \rvert<1$ and is 0 otherwise.
+Let $P_Y$ denote the distribution of $Y$ and let $\mu$ be counting measure on $\{0\}$.
+Find the density of $P_Y$ with respect to $\lambda + \mu$.
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+Let $g(x) = x1_{|x| < 1}$, then $Y = g(X)$. \\
+For any integrable function $f$, the expectation of $f(Y)$ against the density of $X$ is
+\begin{equation}\label{ex1_23_1}
+	Ef(Y) = Ef\big(g(X)\big) = \int f\big(g(x)\big)\phi(x)dx = \int f\big(g(x)\big)\phi(x) 1_{(-1,1)}(x)dx + cf(0), 
+\end{equation}
+where $c = \int \phi(x) 1_{|x|>1}(x) dx = 2\Phi(-1)$. \\
+Similarly, the expectation of $f(Y)$ against the density $p$ of $Y$ is
+\begin{equation}\label{ex1_23_2}
+	Ef(Y) = \int fp d(\lambda + \mu) = \int fp d\lambda + \int fp d\mu = \int f(x)p(x)dx + f(0)p(0).
+\end{equation}
+Then, \eqref{ex1_23_1} and \eqref{ex1_23_2} should be same. Therefore,
+\begin{align*}
+	f = 1_{\{0\}} &\Longrightarrow p(0) = 2\Phi(-1), \\
+	f(0) = 0 &\Longrightarrow \int f(x)\phi(x) 1_{(-1,1)}(x)dx = \int f(x)p(x) dx \\
+		    &\Longrightarrow p(x) = \phi(x) \text{ for } 0 < |x| < 1.
+\end{align*}
+$$ \therefore p(x) = 2\Phi(-1)1_{\{0\}}(x) + \phi(x)1_{(0,1)}(|x|) \text{ is the density of } P_Y. $$
+\end{proof}
+
+
+%% 1.24
+\section{Problem 1.24}
+Let $\mu$ be a $\sigma$-finite measure on a measurable space $(X, \calB)$.
+Show that $\mu$ is absolutely continuous with respect to some probability measure $P$.\\
+\underline{Hint}: You can use the fact that if $\mu_1,\mu_2,\dots$ are probability measures and $c_1, c_2,\dots$ are non-negative constants, then $\sum c_i\mu_i$ is a measure. (The proof for Problem 1.10 extents easily to this case.)
+The measure $\mu_i$, you will want to consider, are truncations of $\mu$ to sets $A_i$ covering $X$ with $\mu(A_i) < \infty$, given by $\mu_i(B) = \mu(B \cap A_i)$.
+With the constants $c_i$ chosen properly, $\sum c_i\mu_i$ will be a probability measure.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+\vspace{-0.5cm}
+\begin{itemize}
+	\item[(i)] $\mu$ is finite $\Longrightarrow$ Trivial! \\
+		$\because$ Since $\mu(X) < \infty$, $P = \mu / \mu(X)$ be a probablity measure.
+		Therefore, $P(N) = 0$ implies $\mu(N) = 0$.
+	\item[(ii)] $\mu$ is infinite but $\sigma$-finite. \\
+		$\Longrightarrow ~ \exists A_1,A_2,\dots \in \calB$ s.t. $\union A_i = X$ and $0 < \mu(A_i) < \infty ~ \forall i.$ \\
+		From \underline{Hint}, $\mu_i(B) = \mu(B \cap A_i)$ and also $\mu_i(X) = \mu(A_i)$ $\Longrightarrow \mu_i$ is a finite measure. \\
+		Let $b_i = 1/2^i$ (or any other seq of positive constants s.t. $\sum b_i = 1$) and define $c_i = b_i/\mu(A_i)$. \\
+		Then $P = \sum_i c_i\mu_i$ is a probability measure, since $P(X) = \sum_i c_i\mu_i(X) = \sum_i \left( \frac{b_i}{\mu(A_i)}\right) \mu(A_i) = 1$. \\
+		Suppose $P(N) = \sum_ic_i\mu_i(N) = 0$. Then $ \mu_i(N) = \mu(N\cap A_i) = 0 ~ \forall i$. \\
+		By Boole's inequality,
+		$$ \mu(N) = \mu\big(\union_i(N\cap A_i)\big) \le \sum_i \mu(N\cap A_i) = 0. $$
+		For any null set for $P$ is a null set for $\mu$. \\
+		$\therefore \mu \ll P.$
+\end{itemize}
+\end{proof}
+
+
+%% 1.25
+\section{Problem 1.25}
+The monotone convergence theorem states that if $0 \le f_1 \le f_2 \le \cdots$ are measurable functions and $f = \limn f_n$, then $\int f d\mu = \limn \int f_n d\mu$.
+Use this result to prove the following assertions.
+\begin{itemize}
+	\item[a)] Show that if $X \sim P_X$ is a random variable on $(\calE, \calB, P)$ and $f$ is a non-negative measurable function, then 
+	$$ \int f\big(X(e)\big)dP(e) = \int f(x)dP_X(x). $$
+	\underline{Hint}: Try it first with $f$ an indicator function. For the general case, let $f_n$ be a sequence of simple functions increasing to $f$.
+	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+		We will show the equation by 3 steps.
+		\begin{itemize}
+			\item[(i)] Suppose $f = 1_A$ (indicator function). \\
+				Then, $f\big(X(e)\big) = 1$ for $X(e) \in A$. \\
+				$\Rightarrow f \circ X = 1_B$ where $B = \{e : X(e) \in A\}$. \\
+				By definition, $P_X(A) = P(B).$
+				\begin{align*}
+					\int f\big(X(e)\big)dP(e) &= \int 1_B(e)dP(e) = P(B), \\
+					\int f(x)dP_X(x) &= \int 1_A(x)dP_X(x) = P_X(A).
+				\end{align*}
+				$ \therefore $ The statement is holds.
+				
+			\item[(ii)] Suppose $f = \sum_{i=1}^n c_i 1_{A_i}$ (simple function).
+				\begin{align*}
+					\therefore \int f\big(X(e)\big)dP(e) &= \int \sum_i c_i1_{A_i}\big(X(e)\big)dP(e) \\
+									    &= \sum_i c_i \int 1_{A_i}\big(X(e)\big)dP(e) \\
+									    &= \sum_i c_i \int 1_{A_i}(x)dP_X(x) \text{~~~ \big(by (i)\big)} \\
+									    &= \int \sum_i c_i 1_{A_i}(x)dP_X(x) \\
+									    &= \int f(x)dP_X(x).
+				\end{align*}
+			
+			\item[(iii)] Suppose $f$ is a non-negative measurable function (general case), and $f_n$ is non-negative simple functions increasing to $f$. \\
+				$\Rightarrow f_n \circ X \nearrow f \circ X$.
+				\begin{align*}
+					\therefore \int f\big(X(e)\big)dP(e) &= \limn \int f_n\big(X(e)\big)dP(e) \text{ ~~~ \big(by M.C.T.\big)} \\
+									    &= \limn \int f_n(x)dP_X(x) \text{~~~ \big(by (ii)\big)} \\
+									    &= \int f(x)dP_X(x)  \text{ ~~~ \big(by M.C.T.\big)} 
+				\end{align*}
+		\end{itemize}
+	\end{proof}
+	
+	\item[b)] Suppose that $P_X$ has density $p$ with respect to $\mu$, and let $f$ be a non-negative measurable function. Show that
+	$$ \int f dP_X = \int f p d\mu. $$
+	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+		It can be also showed by 3 steps.
+		\begin{itemize}
+			\item[(i)] Let $f = 1_A$ (indicator function).
+				$$ \int f dP_X = \int 1_AdP_X = P_X(A) = \int_Apd\mu = \int 1_Apd\mu = \int fpd\mu. $$
+								
+			\item[(ii)] Suppose $f = \sum_{i=1}^n c_i 1_{A_i}$ (simple function).
+				$$ \int f dP_X = \int \sum_i c_i 1_{A_i}dP_X = \sum_i c_i\int 1_{A_i}dP_X \overset{\overset{\mathrm{(i)}}{\downarrow}}{=} \sum_i c_i \int 1_{A_i}pd\mu = \int \sum_ic_i1_{A_i}pd\mu = \int fpd\mu. $$
+				
+			\item[(iii)] For general case, let a non-negative measurable function $f$ and non-negative simple functions $f_n$ s.t. $f_n \nearrow f$. Then by M.C.T.,\\
+				$$ \int fdP_X \overset{\overset{\mathrm{M.C.T.}}{\downarrow}}{=} \limn \int f_ndP_X \overset{\overset{\mathrm{(ii)}}{\downarrow}}{=} \limn\int f_n pd\mu  \overset{\overset{\mathrm{M.C.T.}}{\downarrow}}{=} \int fpd\mu. $$
+		\end{itemize}
+	\end{proof}
+\end{itemize}
+
+
+
+%% 1.26
+\section{Problem 1.26}
+{\em The gamma distribution.}
+\begin{itemize}
+	\item[a)] The gamma function is defined for $\alpha > 0$ by
+		$$ \Gamma(\alpha) = \int_0^\infty x^{\alpha-1}e^{-x} dx. $$
+		Use integration by parts to show that $\Gamma(x+1) = x\Gamma(x)$. Show that $\Gamma(X+1) = x!$ for $x=0,1,\dots.$
+		\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			By integration by parts,
+			$$ \Gamma(x+1) = \int_0^\infty t^x e^{-t}dt = -t^xe^{-t}\big|_0^\infty + (\alpha-1)\int_0^\infty t^{x-1}e^{-t}dt = x\Gamma(x).$$
+			Since $\Gamma(1) = \int_0^\infty e^{-x}dx = 1$,
+			$$ \Gamma(x+1) = x\Gamma(x) = x(x-1)\Gamma(x-1) = \cdots = x(x-1)\cdots 2 \cdot 1\cdot\Gamma(1) = x!. $$
+		\end{proof}
+	
+	\item[b)] Show that the function
+		$$ p(x) = \begin{cases}
+			\frac{1}{\Gamma(\alpha)\beta^\alpha}x^{\alpha-1}e^{-x/\beta}, ~~~ x >0, \\
+			0,~~~~~~~~~~~~~~~~~~~~~~~~ \text{otherwise,}
+		\end{cases} $$
+		is a (Lebesgue) probability density when $\alpha > 0$ and $\beta > 0$.
+		This density is called the gamma density with parameters $\alpha$ and $\beta$.
+		The corresponding probability distribution is denoted $\Gamma(\alpha,\beta)$.
+		\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			Using change of variable, $y = x/\beta \Rightarrow dx = \beta dy$. Therefore,
+			\begin{align*}
+				\int p(x) dx &= \int_0^\infty \frac{1}{\Gamma(\alpha)\beta^\alpha}x^{\alpha-1}e^{-x/\beta} dx \\
+						 &= \int \frac{1}{\Gamma(\alpha)\beta^\alpha}(\beta y)^{\alpha-1}e^{-y}\beta dy \\
+						 &= \frac{1}{\Gamma(\alpha)} \int y^{\alpha-1}e^{-y}dy \\
+						 &= 1.
+			\end{align*}
+		\end{proof}
+		
+	\item[c)] Show that if $X \sim \Gamma(\alpha, \beta)$, then $EX^r = \beta^r\Gamma(\alpha+r)/\Gamma(\alpha)$.
+		Use this formula to find the mean and variance of $X$.
+		\begin{proof}[\underline{\textbf{Solution}}] 
+			\begin{align*}
+				EX^r &= \int_0^\infty x^r p(x)dx \\
+					&= \int_0^\infty \frac{1}{\Gamma(\alpha)\beta^\alpha}x^{\alpha+r-1}e^{-x/\beta} dx \\
+					&= \int_0^\infty \frac{1}{\Gamma(\alpha+r)\beta^{\alpha+r}}x^{\alpha+r-1}e^{-x/\beta} dx \frac{\Gamma(\alpha+r)}{\Gamma(\alpha)}\beta^r \\
+					&= \beta^r\Gamma(\alpha + r)/\Gamma(\alpha).
+			\end{align*}
+			By using this, 
+			$$E X = \beta\Gamma(\alpha+1)/\Gamma(\alpha) = \alpha \beta,$$
+			$$ E X^2 = \beta^2\Gamma(\alpha+2)/\Gamma(\alpha) = (\alpha+1)\alpha \beta^2, $$
+			$$ Var(X) = EX^2 - \{EX\}^2 = \alpha \beta^2. $$
+		\end{proof}
+\end{itemize}
+
+
+
+%% 1.27
+\section{Problem 1.27}
+Suppose $X$ has a uniform distribution on $(0,1)$. Find the mean and covariance matrix of the random vector ${X \choose X^2}$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	Since $X \sim \text{Uniform}(0,1)$, the density of $X$ is $p(x)=1$ for $x \in (0,1)$. Thus,
+	$$EX^r = \int x^r dx = \frac{1}{r+1}.$$
+	Therefore,
+	$$ E\left( {X \choose X^2} \right) = {EX \choose EX^2}, $$
+	$$ Cov\left( {X \choose X^2} \right) =  
+	\begin{pmatrix} 
+	Var(X) & Cov(X, X^2) \\
+	Cov(X^2, X) & Var(X^2) 
+	\end{pmatrix} = 
+	\begin{pmatrix} 
+	EX^2-\{EX\}^2 & EX^3-EXEX^2 \\
+	 EX^3-EXEX^2 & EX^4 - \{EX^2\}^2
+	\end{pmatrix}. $$
+\end{proof}
+
+
+%% 1.28
+\section{Problem 1.28}
+If $X \sim N(0,1)$, find the mean and covariance matrix of the random vector ${X \choose I\{X>c\}}$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	Let $\Phi(x)$ is a cumulative distribution function of $X$, and $\phi$ is a density of $X$. Then,
+	$$ E\left( {X \choose I\{X>c\}} \right) = {EX \choose EI\{X>c\}} = {0 \choose 1-\Phi(c)}, $$
+	$$ Cov\left( {X \choose I\{X>c\}} \right) =  
+	\begin{pmatrix} 
+	Var(X) & EX1_{X>c} - EXE1_{X>c} \\
+	EX1_{X>c} - EXE1_{X>c} & E1_{X>c}^2 - \{E1_{X>c}\}^2
+	\end{pmatrix} = 
+	\begin{pmatrix} 
+	1 & \phi(c) \\
+	 \phi(c) & \Phi(c)(1-\Phi(c))
+	\end{pmatrix}. $$
+	
+	$$ \because EX1_{X>c} = \int_c^\infty \frac{1}{\sqrt{2\pi}} x e^{-x^2/2} dx = \phi(c) \text{ and } 1_{X>c}^2 = 1_{X>c}. $$
+\end{proof}
+
+
+%% 1.32
+\section{Problem 1.32}
+Suppose $E|X| < \infty$ and let
+$$ h(t) = \frac{1-E\cos(tX)}{t^2}. $$
+Use Fubini's theorem to find $\int_0^\infty h(t)dt$.
+\underline{Hint}:
+$$ \int_0^\infty \big(1-\cos(u)\big) u^{-2}du = \frac{\pi}{2}. $$
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	By Funini's theorem,
+	\begin{align*}
+		\int_0^\infty h(t) dt &= \int_0^\infty \left( \frac{1-E\cos(tX)}{t^2} \right)dt \\
+					    &= \int_0^\infty E\left( \frac{1-\cos(tX)}{t^2} \right) dt \\
+					    &= \int_0^\infty \int \frac{1-\cos(tx)}{t^2} dP_X(x) dt \\
+					    &= \int \int_0^\infty \frac{1-\cos(tx)}{t^2} dt dP_X(x) ~~ \text{(by Funini's theorem)}\\
+					    &~~~ u = tx \Rightarrow du = xdt, t = x/u \\
+					    &= \int  \int_0^\infty |x| \frac{1-\cos(u)}{u^2} du dP_X(x) \\
+					    &= \int \frac{\pi}{2}|x|dP_X(x) \\
+					    &= \frac{\pi}{2}E|X|.
+	\end{align*}
+\end{proof}
+
+
+%% 1.33
+\section{Problem 1.33}
+Suppose $X$ is absolutely continuous with density $p_X(x) = xe^{-x}, ~ x > 0$ and $p_X(x)=0, ~ x \le 0$.
+Define $c_n = E(1+X)^{-n}$. Use Funini's theorem to evaluate $\sum_{n=1}^\infty c_n$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	By Funini's theorem,
+	\begin{align*}
+		\sum_{n=1}^\infty c_n &= \sum_n E(1+X)^{-n} \\
+						  &= \sum_n\int_0^\infty (1+x)^{-n}xe^{-x}dx \\
+						  &= \int_0^\infty \sum_n(1+x)^{-n} xe^{-x}dx \\
+						  & \text {Since } \left| \frac{1}{1+x} \right| < 1, ~ \sum_{n=1}^\infty \left(\frac{1}{1+x}\right)^n = \frac{1/(1+x) }{1-1/(1+x)} = \frac{1}{x}. \\
+						  &= \int_0^\infty \frac{1}{x}xe^{-x}dx \\
+						  &= \int_0^\infty e^{-x}dx \\
+						  &= 1.
+	\end{align*}
+\end{proof}
+
+
+%% 1.36
+\section{Problem 1.36}
+Suppose $X$ and $Y$ are independent random variables, and let $F_X$ and $F_Y$ denote their cumulative distribution functions.
+\begin{itemize}
+	\item[a)] Use smoothing to show that the cumulative distribution function of $S = X+Y$ is
+		\begin{equation}\label{eq:1_36}
+			F_S(s) = P(X+Y \le s) = EF_X(s-Y).
+		\end{equation}
+		\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			Since $X$ and $Y$ are independent, $P(X+Y \le s|Y=y) = P(X \le s-y) = F_X(s-y).$ \\
+			Thus, $P(X+Y \le s|Y) = F_X(s-Y).$
+			$$ \therefore F_S(s) = P(X+Y \le s) = EP(X+Y \le s | Y) = EF_X(s-Y). $$
+		\end{proof}
+
+	\item[b)] If $X$ and $Y$ are independent and $Y$ is almost surely positive, use smoothing to show that the cumulative distribution function of $W=XY$ is $F_W(w)=EF_X(w/Y)$ for $w > 0$.
+		\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			Since $X$ and $Y$ are independent, $P(XY \le w|Y=y) = P(X \le w/y|Y=y) = P(X \le w/y) = F_X(w/y),$ for $y>0$. \\
+			Thus, $P(XY \le w|Y) = F_X(w/Y)$ a.s.
+			$$ \therefore F_W(w) = P(XY \le w) = EP(XY \le w | Y) = EF_X(w/Y). $$
+		\end{proof}
+\end{itemize}
+
+
+%% 1.37
+\section{Problem 1.37}
+Differentiating \eqref{eq:1_36} with respect to $s$ one can show that if $X$ is absolutely continuous with density $p_X$, then $S=X+Y$ is absolutely continuous with density
+$$ p_S(s) = Ep_X(s-Y) $$
+for $s \in \bbR$. Use this formula to show that if $X$ and $Y$ are independent with $X \sim \Gamma(\alpha, 1)$ and $Y \sim \Gamma(\beta, 1)$, then $X+Y \sim \Gamma(\alpha+\beta, 1)$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
