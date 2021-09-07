@@ -117,6 +117,7 @@
 \newcommand{\intersect}{\bigcap}
 \newcommand{\eqdef}{\overset{\mathrm{def}}{=}}
 
+
 %
 % Basic Document Settings
 %
@@ -197,7 +198,7 @@
 %\newcommand{\hmwkClassTime}{}
 %\newcommand{\hmwkClassInstructor}{Robert W. Keener}
 
-\newcommand{\courseTitle}{Theoretical Statistics: Topics for a Core Course}
+\newcommand{\courseTitle}{Theoretical Statistics: Topics for a Core Course \\ Summary Note}
 \newcommand{\bookAuthor}{Robert W. Keener}
 \newcommand{\authorName}{Hyunsung Kim}
 
@@ -251,6 +252,7 @@
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Cor}{\mathrm{Cor}}
 \newcommand{\Bias}{\mathrm{Bias}}
 
 % Specify level of toc(table of content)
@@ -321,7 +323,7 @@ For a measure $\mu$ on a set $\calX$ and subsets $A \in \calX$,
 	and also its $\sigma$-algebra $\calA$ be the {\em power set} of $\calX$, denoted $\calA = 2^\calX$.
 
 	\item $\mu$ is {\em Lebesgue measure} on $\calX$ if $\calX = \bbR^n$, and define
-	$$\mu(A) = \int \underset{A}{\cdots}  \int \dx_1\cdots dx_n,$$
+	$$\mu(A) = \underset{A}{\int \cdots \int} \dx_1\cdots dx_n,$$
 	and for any set $A$ in a $\sigma$-algebra $\calA$ called the {\em Borel sets} of $\calX = \bbR^n$, and formally $\calA$ is the smallest $\sigma$-algebra that contains all open set in $\bbR^n$ ("rectangles").
 	
 	\item $\mu$ is {\em probability measure} on $\calX$ if $\mu(\calX) = 1$.
@@ -510,14 +512,175 @@ If $X \sim P_X$ and $P_X$ is absolutely continuous with respect to $\mu$ with de
 \end{remark}
 
 \begin{example}[Absolutely continuous random variables]
-    If a random variable X has density p with respect to Lebesgue measure on $\bbR$, then X or its distribution $P_X$ is called absolutely continuous with density p. Then, from the Radon-Nikodym theorem,
+    If a random variable X has density p with respect to Lebesgue measure on $\bbR$, then X or its distribution $P_X$ is called {\em absolutely continuous} with density p. Then, from the Radon-Nikodym theorem,
     $$ F_X(x) = P(X \le x) = P_X\left( (-\infty, x] \right) = \int_{-\infty}^x p(u)du $$
     And also by fundamental theorem of calculus, $p(x) = F_X'(x)$.
 \end{example}
 
 \begin{example}[Discrete random variables]
     Let $\calX_0$ be a countable subset of $\bbR$. The measure $\mu$ defined by
+    $$ \mu(B) = \# (\calX_0 \cap B) $$
+    for Borel sets $B$ is (also) called {\em counting measure on $\calX_0$}. Then, the integration is defined as
+    $$ \int f d\mu = \sum_{x \in \calX_0} f(x). $$
+    If a random variable $X$ satisfies
+    $$ P(X \in \calX_0) = P_X(\calX_0) = 1, $$
+    then $X$ is called a {\em discrete random variable}.
+    And also $P_X$ is absolutely continuous with respect to $\mu$. (See the textbook page 8.)
+        
+    The density $p$ of $P_X$ with respect to $\mu$ satisfies
+    $$ P(X \in A) = P_X(A) = \int_A p d\mu = \sum_{x \in \calX_0} p(x) 1_A(x). $$
+    If $A = \{y\}$ with $y \in \calX_0$, then
+    $$P(X = y) = \sum_{x \in \calX_0}p(x)1_{\{y\}}(x) = p(y).  $$
+    This density $p$ is called the {\em mass function} for $X$.
 \end{example}
+
+
+
+%% 1.6 Expectation
+\section{Expectation}
+
+\begin{definition}[Expectation]
+If $X$ is a random variable on a probability space $(\calE, \calB, P)$, then the expectation or expected value of $X$ is defined as 
+$$EX = \int X dP.$$
+If $X \sim P_X$, then
+$$ EX = \int x dP_X(x). $$
+Also, if $Y= f(X)$, then
+$$ EY = Ef(X) = \int f dP_X. $$
+\end{definition}
+
+\begin{remark}
+	If $P_X$ has density $p$ with respect to $\mu$, then
+	$$ \int f dP_X = \int fp d\mu. $$
+\end{remark}
+
+\begin{example}
+If $X$ is an absolutely continuous random variable with density $p$, then
+$$ EX = \int xdP_X(x) = \int xp(x)dx $$
+and
+$$ Ef(X) = \int f(x)p(x)dx. $$
+\end{example}
+
+\begin{example}
+If $X$ is a discrete with $P(X \in \calX_0) = 1$ for a countable set $\calX_0$, if $\mu$ is counting measure on $\calX_0$, and if $p$ is the mass function given by $p(x) = P(X=x)$, then
+$$ EX = \int xdP_X(x) = \int xp(x)d\mu(x) = \sum_{x \in \calX_0} xp(x) $$
+and 
+$$ Ef(X) = \sum_{x\in \calX_0} f(x)p(x). $$
+\end{example}
+
+\begin{proposition}
+If $X$ and $Y$ are random variables with finite expectations, the followings are satisfied.
+\begin{enumerate}
+	\item For $a$ and $b$ are nonzero constants, 
+		$$E(aX+bY) = aEX + bEY.$$
+	\item If $X \le y$ (a.e. $P$), then $EX \le EY$, and equality holds if $X=Y$ (a.e. $P$).
+\end{enumerate}
+\begin{proof}
+ 생략
+\end{proof}
+\end{proposition}
+
+\begin{definition}[Variance]
+The variance of a random variable $X$ with finite expectation is defined as
+$$ \Var(X) = E(X-EX)^2 = EX^2 - (EX)^2. $$
+\begin{enumerate}
+	\item If $X$ is absolutely continuous with density $p$,
+		$$ \Var(X) = \int (x-EX)^2p(x)dx. $$
+	\item If $X$ is discrete with mass function $p$,
+		$$ \Var(X) = \sum_{x \in \calX_0} (x-EX)^2p(x). $$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Covariance]
+The covariance between two random variables $X$ and $Y$ with finite expectation is defined as
+$$ \Cov(X,Y) = E(X-EX)(Y-EY) = EXY - (EX)(EY). $$
+\end{definition}
+
+\begin{definition}[Correlation]
+The correlation between two random variables $X$ and $Y$ with finite expectation is defined as
+$$ \Cor(X,Y) = \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)}}, $$
+and it always lie in $[-1, 1]$.
+\end{definition}
+
+
+%% 1.7 Random Vectors
+\section{Random Vectors}
+
+\begin{definition}[Random vector]
+If $X_1, \dots, X_n$ are random variables, then the function $X: \calE \to \bbR^n$ defined by
+$$ X(e) =  \begin{pmatrix}
+X_1(e) \\
+\vdots \\
+X_n(e)
+\end{pmatrix}, ~~~~~ e \in \calE, $$
+is called a random vector.
+\end{definition}
+
+\begin{remark} 
+Similarly with the random variables, the notations of random vectors is directly extended by follows:
+\begin{enumerate}
+	\item The distribution of $P_X$ of $X$ is defined by
+		$$ P_X(B) = P(X\in B) \eqdef P\big( \{e\in\calE : X(e) \in B \big) $$
+		for Borel sets $B \in \bbR^n$, and denote $X \sim P_X$.
+	\item The random vector $X$ or its distribution $P_X$ is called {\em absolutely continuous} with density $p$ if $P_X$ is absolutely continuous with respect to Lebesgue measure on $\bbR^n$. And the probability is defined as
+		$$ P(X \in B) = \underset{B}{\int\cdots\int} p(x)dx. $$
+		
+	\item The random vector $X$ is {\em discrete} if $P(X \in \calX_0) = 1$ for some countable set $\calX_0 \subset \bbR^n$.
+		If $p(x) = P(X= x)$, then $P_X$ has density $p$ with respect to counting measure on $\calX_0$ and
+		$$ P(X \in B) = \sum_{x \in \calX \cap B} p(x). $$
+	\item The expectation of random vector $X$ is defined as
+		$$ EX = \begin{pmatrix}
+		EX_1 \\
+		\vdots \\
+		EX_n
+		\end{pmatrix}. $$
+		If $T: \bbR^n \to \bbR$ is a measurable function, then $T(X)$ is a random variable, and with finite integral,
+		$$ ET(X) = \int T dP_X. $$
+		If $P_X$ has a density $p$ with respect to a dominating measure $\mu$, this integral can be expressed as $\int T pd\mu$, which becomes
+		$$ \sum_{x \in \calX_0} T(x)p(x) \text{ or } \int \cdots \int T(x)p(x)dx, $$
+		where discrete and absolutely continuous cases with $\mu$ counting or Lebesgue measure, respectively.
+\end{enumerate}
+\end{remark}
+
+
+
+%% 1.8 Covariance Matrices
+\section{Covariance Matrices}
+
+\begin{definition}[Random matrix]
+	A matrix $W$ is called a random matrix if the entires $W_{ij}$ are random variables.
+	If $W$ is a random matrix, then $EW$ is the matrix of expectations of the entires,
+	$$ (EW)_{ij} = EW_{ij}. $$
+\end{definition}
+
+\begin{remark}
+	If $v$ is a constant vector, $A$, $B$, and $C$ are constant matrices, $X$ is a random vector, and $W$ is a random matrix, then
+	$$ E[v + AX] = v + AE(X),$$
+	$$ E[A+BWC] = A+B(EW)C. $$
+\end{remark}
+
+\begin{definition}[Covariance matrix]
+	
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
