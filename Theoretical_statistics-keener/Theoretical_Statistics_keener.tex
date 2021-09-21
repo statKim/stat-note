@@ -256,7 +256,7 @@
 \newcommand{\Bias}{\mathrm{Bias}}
 
 % Specify level of toc(table of content)
-\setcounter{tocdepth}{0}
+\setcounter{tocdepth}{1}
 
 % Setting for blank page appeared when begin new chapter
 \let\cleardoublepage=\clearpage
@@ -648,21 +648,75 @@ Similarly with the random variables, the notations of random vectors is directly
 
 \begin{definition}[Random matrix]
 	A matrix $W$ is called a random matrix if the entires $W_{ij}$ are random variables.
-	If $W$ is a random matrix, then $EW$ is the matrix of expectations of the entires,
+\end{definition}
+
+\begin{definition}[Expectation of random matrix]
+	If $W$ is a random matrix, then $EW$ is the matrix of expectations of the entries,
 	$$ (EW)_{ij} = EW_{ij}. $$
+\end{definition}
+
+\begin{definition}[Covariance matrix]
+	The covariance of a random vector $X$ is the matrix of covariances of the variables in $X$; that is,
+	$$ \big[ \Cov(X) \big]_{ij} = \Cov(X_i,X_j). $$
+	If $\mu = EX$ and $(X-\mu)'$ denotes the transpose of $X-\mu$, a (random) row vector, then
+	$$ \Cov(X_i,X_j) = E(X_i-\mu_i)(X_j - \mu_j) = E\big[ (X-\mu)(X-\mu)'  \big]_{ij}, $$
+	and so
+	$$ \Cov(X) = E(X-\mu)(X-\mu)' = EXX' - \mu\mu'. $$
 \end{definition}
 
 \begin{remark}
 	If $v$ is a constant vector, $A$, $B$, and $C$ are constant matrices, $X$ is a random vector, and $W$ is a random matrix, then
-	$$ E[v + AX] = v + AE(X),$$
-	$$ E[A+BWC] = A+B(EW)C. $$
+	\begin{enumerate}
+		\item $ E[v + AX] = v + AE(X).$
+		\item $ E[A+BWC] = A+B(EW)C. $
+		\item $ \Cov(v + AX) = A\Cov(X)A'. $
+	\end{enumerate}
+	\begin{proof}
+		By using the definitions and the simple matrix algebra, these are trivial.
+	\end{proof}
 \end{remark}
 
-\begin{definition}[Covariance matrix]
-	
+
+
+%% 1.9 Product Measures and Independence
+\section{Product Measures and Independence}
+
+\begin{definition}[Product measure]
+Let $(\calX, \calA, \mu)$ and $(\calY, \calB, \nu)$ are measure spaces.
+Then there exists a unique measure $\mu \times \nu$, called the product measure, on $(\calX \times \calY, \calA \lor \calB)$ such that 
+$$ (\mu \times \nu)(A \times B) = \mu(A) \nu(B), $$
+for all $A \in \calA$ and all $B \in \calB$.
+The $\sigma$-algebra $\calA \lor \calB$ is defined formally as the smallest $\sigma$-algebra containing all sets $A \times B$ with $A \in \calA$ and $B \in \calB$.
 \end{definition}
 
 
+\begin{example}
+	These are simple examples of product measure.
+        \begin{enumerate}
+                \item If $\mu$ and $\nu$ are Lebesgue measures on $\bbR^n$ and $\bbR^m$, respectively, then $\mu \times \nu$ is Lebesgue measure on $\bbR^{n+m}$.
+                \item If $\mu$ and $\nu$ are counting measures on sets $\calX_0$ and $\calY_0$, then $\mu \times \nu$ is counting measure on $\calX_0 \times \calY_0$.
+        \end{enumerate}
+\end{example}
+
+
+\begin{theorem}[Fubini]
+If $f \ge 0$ or $f$ is integrable which means $\int |f| d(\mu \times \nu) < \infty$, then
+\begin{align*}
+	\int f d(\mu \times \nu) &= \int \left[ \int f(x,y)d\nu(y)\right] d\mu(x) \\
+					  &= \int \left[ \int f(x,y) d\mu(x) \right] d\nu(y).
+\end{align*}
+\begin{proof}
+See Royden p.418(Statement) and p.421(Proof), or Durrett p.34 Theorem 1.7.2.
+\end{proof}
+\end{theorem}
+
+
+\begin{definition}[Independence]
+Two random vectors, $X \in \bbR^n$ and $Y \in \bbR^m$ are independent if 
+$$ P(X \in A, Y \in B) = P(X \in A)P(Y \in B), $$
+for all Borel sets $A$ and $B$.
+
+\end{definition}
 
 
 

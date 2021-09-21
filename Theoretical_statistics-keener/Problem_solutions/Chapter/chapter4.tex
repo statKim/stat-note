@@ -1,0 +1,697 @@
+\chapter{Unbiased Estimation}
+
+%% # 4.1
+\section{Problem 4.1}
+Let $X_1, \dots, X_m$ and $Y_1,\dots, Y_n$ be independent variables with the $X_i$ a random sample from an exponential distribution with failure rate $\lambda_x$, and the $Y_j$ a random sample from an exponential distribution with failure rate $\lambda_y$.
+\begin{enumerate}
+	\item[a)] Determine the UMVU estimator of $\lambda_x / \lambda_y$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Note that if $X \sim \text{Exp}(\lambda)$ with rate parameter $\lambda$, the denstiy $p_\lambda(x) = \lambda e^{-\lambda x}$. \\
+			Since $X_i, \forall i$ and $Y_j, \forall j$ are independent, the joint density is
+			$$ p_{\lambda_x, \lambda_y}(x,y) = \lambda_x^n\lambda_y^n e^{-\lambda_x\sum_ix_i - \lambda_y \sum_iy_i}, $$
+			which is the 2-parameter full-rank exponential family.
+			Thus, by factorization theorem, $T=(\sum_{i=1}^m X_i, \sum_{i=1}^n Y_i)$ is the complete sufficient. \\
+			Since $X_1,\dots,X_m$ are i.i.d. Exp($\lambda_x$) = $\Gamma(1, \lambda_x)$, $T_1 = \sum_{i=1}^m X_i \sim \Gamma(m, \lambda_x)$. Then,
+			$$ E\frac{1}{T_1} = \int \frac{1}{t} \frac{\lambda_x^m}{\Gamma(m)} t^{m-1} e^{-\lambda_x t} dt = \frac{\Gamma(m-1) \lambda_x^m}{\Gamma(m)\lambda_x^{m-1}} = \frac{\lambda_x}{m-1}. $$
+			Similarly, we can obtain $E T_2 = n / \lambda_y$. ($\because EY_i = 1/\lambda_y$) \\
+			From the fact of the expectation of independent random variables,
+			$$ E\frac{T_2}{T_1} = E\frac{1}{T_1} \cdot ET_2 = \frac{n\lambda_x}{(m-1)\lambda_y}. $$
+			Therefore, 
+			$$ \delta(x,y) = \frac{(m-1)T_2}{nT_1} $$
+			is the unbiased estimator of $\lambda_x/\lambda_y$, and also UMVU since it is the function of complete sufficient statistic $T$. (By Theorem 4.4 with Rao-Blackwellization)
+            	\end{proof}
+	
+	\item[b)] Under squared error loss, find the best estimator of $\lambda_x / \lambda_y$ of form $\delta = c\overline Y / \overline X$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			Let $\delta = c\overline Y / \overline X = d T_2/T_1$.
+            		Then, the risk of $\delta = c\overline Y / \overline X$ and $\lambda_x / \lambda_y$ is
+			\begin{equation}\label{eq:4.1}
+				R\left( \frac{\lambda_y}{\lambda_x}, \delta \right) = E\left[ d\frac{T_2}{T_1} - \frac{\lambda_x}{\lambda_y}  \right]^2 = d^2E\frac{T_2^2}{T_1^2} - 2 \frac{\lambda_x}{\lambda_y} d E\frac{T_2}{T_1} +  \frac{\lambda_x^2}{\lambda_y^2}. 
+			\end{equation}
+			Since $T_1 \sim \Gamma(m, \lambda_x)$ and $T_2 \sim \Gamma(n, \lambda_y)$,
+			$$ ET_2^2 = \Var(T_2) + \{ET_2\}^2 = n/\lambda_y^2 + n^2/\lambda_y^2, $$
+			$$ E\frac{1}{T_1^2} = \int \frac{1}{t^2} \frac{\lambda_x^m}{\Gamma(m)} t^{m-1} e^{-\lambda_x t} dt = \frac{\Gamma(m-2) \lambda_x^2}{\Gamma(m)} = \frac{\lambda_x^2}{(m-1)(m-2)}. $$
+			Thus, using the fact that $T_1$ and $T_2$ are independent,
+			$$ E\frac{T_2^2}{T_1^2} = E\frac{1}{T_1^2} \cdot ET_2^2 = \frac{n(n+1)\lambda_x^2}{(m-1)(m-2)\lambda_y^2}. $$
+			By using the result from a), we know $ET_2/T_1 = \big(n\lambda_x\big) / \big((m-1)\lambda_y\big)$, then the risk \eqref{eq:4.1} be
+			\begin{align*}
+				R\left( \frac{\lambda_y}{\lambda_x}, \delta \right) &= d^2E\frac{T_2^2}{T_1^2} - 2 \frac{\lambda_x}{\lambda_y} d E\frac{T_2}{T_1} +  \frac{\lambda_x^2}{\lambda_y^2} \\
+				&= d^2\frac{n(n+1)\lambda_x^2}{(m-1)(m-2)\lambda_y^2} - 2\frac{\lambda_x}{\lambda_y}d\frac{n\lambda_x}{(m-1)\lambda_y} + \frac{\lambda_x^2}{\lambda_y^2} \\
+				&= \frac{\lambda_x^2}{\lambda_y^2} \left( \frac{n(n+1)}{(m-1)(m-2)}d^2 - 2\frac{n}{(m-1)}d + 1 \right) \\
+				&= \frac{\lambda_x^2}{\lambda_y^2} \frac{n(n+1)}{(m-1)(m-2)} \left[ \left( d- \frac{m-2}{n+1}\right)^2 - \left(\frac{m-2}{n+1}\right)^2 + 1 \right].
+			\end{align*}
+			Thus, it has the minimum when $d = \frac{m-1}{n+1}$. \\
+			Therefore, the best estimator of $\lambda_x/\lambda_y$ is $c\overline Y/\overline X = dT_2/T_1 = \left[(m-2)n \overline Y\right] / \left[(n+1)m \overline X\right]$.
+			$$ \therefore  c =  \frac{(m-2)n}{(n+1)m}. $$
+            	\end{proof}
+	
+	\item[c)] Find the UMVU estimator of $e^{-\lambda_x} = P(X_1 > 1)$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Let $\delta$ is the unbiased estimator of $P(X_1 > 1)$. Then, 
+			$$ E\delta = P(X_1 > 1) \Rightarrow \delta = 1_{\{X_1 > 1\}}.$$
+			From the previous steps, we know $T_1$ is C.S.S., thus $\eta(T_1) =E(\delta | T_1) = P(X_1 > 1|T_1)$ is UMVU by Theorem 4.4. 
+			We follow by 2 steps.
+			\begin{enumerate}
+			\item[(i)] \underline{Find the joint density of $X$ and $T_1$, where $X = 1_{\{X_1 > 1\}}$ and $T_1 = \sum_{i=1}^m X_i$.}	 \\
+				First, we should find the joint density of $X$ and $S$ where $S = \sum_{i=2}^m X_i$.
+				Since $X$ and $S$ are independent, the joint density is easily obtained as
+				$$ f(x,s) = f(x)f(s) = \lambda_x e^{-\lambda_x x} \frac{\lambda_x^{m-1}}{\Gamma(m-1)} s^{m-2}e^{-\lambda_x s} = \frac{\lambda_x^m}{\Gamma(m-1)} s^{m-2}e^{-\lambda_x(x+2)}, ~~ x>0, s>0. $$
+				By transformation of variables $X = X, T_1 = S+X$, the jacobian $|J| = \begin{vmatrix}
+				1 & 0 \\
+				-1 & 1
+				\end{vmatrix}•= 1$.
+				Then, the joint density of $X$ and $T_1$ is
+				$$ f(x,t) = \frac{\lambda_x^m}{\Gamma(m-2)} (t-x)^{m-2}e^{-\lambda_x t}, ~~ 0 < x <t. $$
+			\item[(ii)] \underline{Derive $E(\delta|T_1)$.} \\
+				To obtain the expectation, we derive the conditional density of $X$ given $T_1$.
+				Since $T_1 \sim \Gamma(m, \lambda_x)$, the conditional density be
+				$$ f(x|t) = \frac{f(x,t)}{f(t)} = \frac{\Gamma(m)}{\Gamma(m-2)} (t-x)^{m-2}t^{-(m-1)} = (m-1)\frac{1}{t}\left(1-\frac{x}{t}\right)^{m-2}, ~~ 0 < x < t. $$
+				Then, 
+				\begin{align*}
+					 E(\delta|T_1) &= P(X_1 > 1|T_1) = P(X|T_1) \\
+					 		    &= \int_1^t f(x|t) dx \\
+							    &= \int_1^t (m-1)\frac{1}{t}\left(1-\frac{x}{t}\right)^{m-2} dx \\
+							    &= -\left(1-\frac{x}{t}\right)^{m-1} \bigg|_1^t \\
+							    &= \left(1-\frac{1}{t}\right)^{m-1} 1_{\{T_1 > 1\}}.							    
+				\end{align*}
+			\end{enumerate}
+
+            	\end{proof}
+\end{enumerate}
+
+
+%% # 4.2
+\section{Problem 4.2}
+Let $X_1,\dots,X_n$ be a random sample from $N(\mu_x, \sigma^2)$, and let $Y_1,\dots,Y_m$ be an independent random sample from $N(\mu_y, 2\sigma^2)$, with $\mu_x, ~ \mu_y$, and $\sigma^2$ all unknown parameters..
+\begin{enumerate}
+	\item[a)] Find a complete sufficient statisic.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Since $X_1,\dots,X_n, Y_1,\dots,Y_m$ are mutually independent, the joint density,
+			\begin{align*}
+				f(x,y) &= f(x)f(y) \\
+					&= (2\pi \sigma^2)^{-n/2}(4\pi\sigma^2)^{-m/2} \exp\left[ -\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i - \mu_x)^2 - \frac{1}{4\sigma^2}\sum_{j=1}^m(y_j - \mu_y)^2 \right] \\
+					&= \exp\left[ -\frac{\sum_{i=1}^nx_i^2}{2\sigma^2} - \frac{\sum_{j=1}^m y_j^2}{4\sigma^2} + \frac{\mu_x\sum_ix_i}{\sigma^2} + \frac{\mu_y \sum_jy_j}{2\sigma^2} - \frac{n\mu_x^2}{2\sigma^2} - \frac{m\mu_y^2}{4\sigma^2} \right]  (2\pi \sigma^2)^{-n/2}(4\pi\sigma^2)^{-m/2} \\
+					&= \exp\left[ \frac{\mu_x\sum_ix_i}{\sigma^2} + \frac{\mu_y \sum_jy_j}{2\sigma^2} -\frac{2\sum_{i=1}^nx_i^2 + \sum_{j=1}^m y_j^2}{4\sigma^2} - \frac{n\mu_x^2}{2\sigma^2} - \frac{m\mu_y^2}{4\sigma^2} \right] (2\pi \sigma^2)^{-n/2}(4\pi\sigma^2)^{-m/2},
+			\end{align*}
+			is the full-rank exponential family. Therefore, 
+			$$ T = \left(\sum_{i=1}^n X_i, \sum_{j=1}^m Y_j, 2\sum_{i=1}^nX_i^2 + \sum_{j=1}^m Y_j^2\right) $$
+			is the complete sufficient statistic for $(\mu_x,\mu_y, \sigma^2)$.
+            	\end{proof}
+	
+	\item[b)] Determine the UMVU estimator of $\sigma^2$.\\
+	 	\underline{Hint}: Find a linear combination $L$ of $S_x^2 = \sum_{i=1}^n (X_i - \overline X)^2/(n-1)$ and $S_y^2 = \sum_{j=1}^m (Y_j-\overline Y)^2/(m-1)$ so that $(\overline X, \overline Y, L)$ is complete sufficient.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			To use the C.S.S. obtained from a), let 
+			$$ 2(n-1)S_x^2 + (m-1)S_y^2 = 2\left(\sum_iX_i^2 -n\overline X^2\right) + \left( \sum_jY_j^2 - m\overline Y^2 \right) $$
+			is the linear combination of $T$. 
+			Since the sample variance is unbiased, then its expectation is
+			$$ E\left[2(n-1)S_x^2 + (m-1)S_y^2 \right] = (2n+2m-4)\sigma^2. $$
+			Now, we let
+			$$ S_p^2 = \frac{1}{2n+2m-4}\Big[ 2(n-1)S_x^2 + (m-1)S_y^2 \Big], $$
+			then it is unbiased for $\sigma^2$ based on complete sufficient $T$. \\
+			By theorem 4.4, it is UMVU of $\sigma^2$.
+            	\end{proof}
+	
+	\item[c)] Find a UMVU estimator of $(\mu_x - \mu_y)^2$.
+            	\begin{proof}[\underline{\textbf{Solution}}]
+            		\begin{align*}
+				E(\overline X - \overline Y)^2 &= \Var(\overline X - \overline Y) + \big[E(\overline X - \overline Y)\big]^2 \\
+									     &= \Var(\overline X) + \Var(\overline Y) + \big[ E\overline X - E\overline Y \big]^2 \\
+									     &= \frac{\sigma^2}{n} + \frac{2\sigma^2}{m} + (\mu_x - \mu_y)^2.
+			\end{align*}
+			We obtained the unbiased estimator of $\sigma^2$ in b). Thus, we let $\delta$ as
+			$$ \delta = (\overline X - \overline Y)^2 - S_p^2\left( \frac{1}{n} - \frac{2}{m} \right), $$
+			then it is the unbiased estimator of $(\mu_x - \mu_y)^2$ based on complete sufficient $T$. \\
+			By Theorem 4.4, $\delta$ is UMVU of $(\mu_x - \mu_y)^2$.
+            	\end{proof}
+	
+	\item[d)] Suppose we know the $\mu_y = 3\mu_x$. What is the UMVU estimator of $\mu_x$?
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		With restriction $\mu_y = 3\mu_x$, the joint density of exponential family is changed as
+			$$ f(x,y) = \cdots = \exp\left[ \frac{\mu_x(2\sum_ix_i + 3\sum_jy_j)}{2\sigma^2} - \cdots \right]\cdots. $$
+			Thus, $T = \left(2\sum_iX_i + 3\sum_jY_j,~ 2\sum_{i=1}^nX_i^2 + \sum_{j=1}^m Y_j^2\right)$ is complete sufficient.\\
+			Take expectation for $T_1$, then 
+			$$ ET_1 = 2n\mu_x + 3m\mu_y = (2n+9m)\mu_x,$$
+			Now we let $\delta$ as
+			$$ \delta = \frac{2\sum_ix_i + 3\sum_jy_j}{2n+9m}, $$
+			then,  it is unbiased estimator based on $T$. \\
+			By Theorem 4.4, $\delta$ is UMVU of $\mu_x$.
+            	\end{proof}
+\end{enumerate}
+
+
+%% # 4.3
+\section{Problem 4.3}
+Let $X_1,\dots,X_n$ be a random sample from the Poisson distribution with mean $\lambda$.
+Find the UMVU for $\cos \lambda$.
+(\underline{Hint}: For Taylor expansion, the identity $\cos \lambda = (e^{i\lambda} + e^{-i\lambda})/2$ may be useful.)
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	The joint density is
+	$$ p_\lambda(x) = \frac{\lambda^{\sum_ix_i}e^{-n\lambda}}{x_1!\cdots x_n!}, $$
+	with $T = \sum_iX_i$, that is complete sufficient. ($\because$ full-rank exponential family, and by factorization theorem)
+	
+	Note that $T \sim Poisson(n\lambda)$.
+	Let $\delta(t)$ is an unbiased estimator of $\cos \lambda$ based on $T$.
+	Then, its expectation should satisfy follows:
+	$$ E\delta(T) = \sum_{t=0}^\infty \delta(t)\frac{(n\lambda)^t e^{-n\lambda}}{t!} = \cos\lambda $$
+	$$ \Leftrightarrow \sum_{t=0}^\infty \delta(t)\frac{(n\lambda)^t }{t!} = e^{n\lambda}\cos\lambda $$
+	Apply Talyor expansion for RHS,
+	\begin{align*}
+		e^{n\lambda}\cos\lambda &= e^{n\lambda}\frac{1}{2}\left( e^{i\lambda} + e^{-i\lambda} \right) \\
+						        &= \frac{1}{2}\left( e^{(n+i)\lambda} + e^{(n-i)\lambda} \right) \\
+						        &= \frac{1}{2}\sum_{t=0}^\infty \frac{\big((n+i)\lambda\big)^t + \big((n-i)\lambda\big)^t}{t!} \\
+						        &= \sum_{t=0}^\infty \frac{(n\lambda)^t}{t!} \left[ \frac{\left(1+\frac{i}{n}\right)^t + \left(1-\frac{i}{n}\right)^t}{2} \right].
+	\end{align*}
+	Therefore, 
+	$$ \delta(t) = \frac{1}{2}\left\{ \left(1+\frac{i}{n}\right)^t + \left(1-\frac{i}{n}\right)^t \right\} $$	
+	is unbiased estimator of $\cos\lambda$ based on $T$. \\
+	By Theorem 4.4, $\delta(t)$ is UMVU of $\cos\lambda$.
+\end{proof}
+
+
+%% # 4.4
+\section{Problem 4.4}
+Let $X_1,\dots,X_n$ be independent normal variables, each with unit variance, and with $EX_i=\alpha t_i + \beta t_i^2, ~ i=1,\dots, n$, where $\alpha$ and $\beta$ are unknown parameters and $t_1,\dots,t_n$ are known constants.
+Find UMVU estimators of $\alpha$ and $\beta$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	Since $X_i \sim N(\alpha t_i + \beta t_i^2, 1)$, the joint density is
+	\begin{align*}
+	f(x) &= (2\pi)^{-\frac{n}{2}} \exp\left[ -\frac{1}{2}\sum_i (x_i - \alpha t_i - \beta t_i^2)^2 \right] \\
+	      &= (2\pi)^{-\frac{n}{2}} \exp\left[ -\frac{1}{2}\sum_i \left( x_i^2 + \alpha^2t_i^2 + \beta^2t_i^4-2\alpha x_it_i - 2\beta x_it_i^2 + \alpha\beta t_i^3 \right) \right].
+	\end{align*}
+	Since these density is full-rank exponential family, 
+	$$ T = \left( \sum_i X_it_i, ~ \sum_i X_it_i^2 \right) $$
+	 is complete sufficient and its expected value is
+	$$ ET_1 = \alpha \sum t_i^2 + \beta \sum t_i^3, ~~~ ET_2 = \alpha \sum t_i^3 + \beta \sum t_i^4. $$
+	By using this,
+	$$ \widehat\alpha = \frac{T_1\sum t_i^4 - T_2 \sum t_i^3}{\sum t_i^2\sum t_i^4 - \left(\sum t_i^3\right)^2}, ~~~ \widehat\beta = \frac{T_1\sum t_i^3 - T_2 \sum t_i^2}{\left(\sum t_i^3\right)^2 - \sum t_i^4\sum t_i^2} $$
+	are unbiased estimator of $\alpha$ and $\beta$.
+	Since these are the function of $T$, also UMVU.
+\end{proof}
+
+
+%% # 4.5
+\section{Problem 4.5}
+Let $X_1,\dots,X_n$ be i.i.d. from some distribution $Q_\theta$, and let $\overline X=(X_1 + \cdots + X_n) / n$ be the sample average.
+\begin{enumerate}
+	\item[a)] Show that $S^2 = \sum(X_i-\overline X)^2 / (n-1)$ is unbiased for $\sigma^2 = \sigma^2(\theta) = \Var_\theta(X_i)$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Denote $\mu = EX_i$. Also note that $(n-1)S^2 = \sum_iX_i^2 - n\overline X^2$. Then,
+			\begin{align*}
+				E\left((n-1)S^2\right) &= \sum_i EX_i^2 - nE\overline X^2 \\
+								&= \sum_i\left[\Var X_i + (EX_i)^2\right] - n\left[\Var\overline X + (E\overline X)^2\right] \\
+								&= n(\sigma^2 + \mu^2) - n(\sigma^2/n + \mu^2) \\
+								&= (n-1)\sigma^2.
+			\end{align*}
+			Therefore $S^2$ is unbiased for $\sigma^2$.
+            	\end{proof}
+	
+	\item[b)] If $Q_\theta$ is the Bernoulli distribution with success probability $\theta$, show that $S^2$ from (a) is UMVU.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			Note that the density of $X_i$ is $\theta^{x_i}(1-\theta)^{1-x_i} = \left(\frac{\theta}{1-\theta}\right)^x(1-\theta)$. \\
+            		The joint density,
+			$$ p(x) = \exp\left[ \sum_ix_i\log\frac{\theta}{1-\theta} + n\log(1-\theta) \right], $$
+			is the full-rank exponential family.
+			Thus, $T=\overline X$ (or $\sum_i X_i$) is complete sufficient. \\
+			Meanwhile, 
+			\begin{align*}
+				S^2 &= \frac{1}{n-1}\left(\sum X_i^2 - n\overline X^2\right) \\
+				       &= \frac{1}{n-1}\left(\sum X_i - n\overline X^2\right) ~~~(\because X_i^2 = X_i) \\
+				       &= \frac{n\overline X(1-\overline X)}{n-1}
+			\end{align*}
+			is the function of $T=\overline X$.
+			Therefore, $S^2$ is UMVU of $\sigma^2$ by Theorem 4.4.
+            	\end{proof}
+	
+	\item[c)] If $Q_\theta$ is the exponential distribution with failure rate $\theta$, find the UMVU estimator of $\sigma^2 = 1/\theta^2$.
+		Give a formula for $E_\theta[X_i^2|\overline X=c]$ in this case.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Note that the density of $X_i$ is $\theta e^{-\theta x}$ with mean $1/\theta$ and variance $1/\theta^2$. \\
+			The joint density,
+			$$ p(x) = \exp\left[ -\theta\sum x_i + n\log\theta \right], $$
+			is the full-rank exponential family.
+			Thus, $T=\overline X$ (or $\sum_i X_i$) is complete sufficient with $ET = 1/\theta$ and $\Var T = 1/(n\theta^2)$. \\
+			Meanwhile,
+			$$ E\overline X^2 = \Var\overline X + (E\overline X)^2 = \frac{1}{n\theta^2} + \frac{1}{\theta^2} = \frac{n+1}{n}\frac{1}{\theta^2} = \frac{n+1}{n}\sigma^2.$$
+			Thus, $\delta = \frac{n}{n+1}\overline X^2$ is the unbiased estimator of $\sigma^2$, and also function of $T=\overline X$. \\
+			By Theorem 4.4, $\delta$ is UMVU for $\sigma^2$.
+			
+			Next, since $X_i$'s are i.i.d., $E_\theta[X_1^2|\overline X=c] = \cdots = E_\theta[X_n^2|\overline X=c]$. Then,
+			\begin{align*}
+				E_\theta[S^2|\overline X=c] &= \frac{nc^2}{n+1} \\
+									   &= E_\theta\left[\frac{\sum_i X_i^2-n\overline X^2}{n-1}  \bigg|\overline X=c\right] \\
+									   &= E_\theta\left[\frac{\sum_i X_i^2}{n-1} - \frac{nc^2}{n-1} \bigg|\overline X=c\right] \\
+									   &= \frac{n}{n-1}E_\theta[X_1^2|\overline X=c] - \frac{nc^2}{n-1}.
+			\end{align*}
+			$$ \therefore E_\theta[X_i^2|\overline X=c] = nc^2\left( \frac{1}{n+1} + \frac{1}{n-1} \right)\frac{n-1}{n} = c^2\left( \frac{n-1}{n+1} + 1 \right) = \frac{2nc^2}{n+1}. $$
+			
+            	\end{proof}
+\end{enumerate}
+
+
+%% # 4.6
+\section{Problem 4.6}
+Suppose $\delta$ is a UMVU estimator of $g(\theta)$; $U$ is an unbiased estimator of zero, $E_\theta U=0, ~\theta \in \Omega$; and that $\delta$ and $U$ both have finite variances for all $\theta \in \Omega$.
+Show that $U$ and $\delta$ are uncorrelated, $E_\theta U\delta = 0, ~ \theta \in \Omega$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+For the convenience, we drop $\theta$ in the notation of $E$, $\Var$ and $\Cov$.\\
+Let $\delta^* = \delta + cU$ where $c$ is a constant. Then, $\delta^*$ is an unbiased estimator for $g(\theta)$ ($\because ~ E\delta^* = E(\delta + cU) = E\delta + cEU = g(\theta)$). \\
+Since $\delta$ is UMVU, 
+$$ \Var(\delta + cU) = \Var(\delta) + c^2\Var(U) + 2c\Cov(\delta, U) \ge \Var(\delta), $$
+$$ \Rightarrow c^2\Var(U) + 2c\Cov(\delta, U) \ge 0. $$
+Denote LHS as $h(c)$. Since $h$ is convex and has minimum $h(0) = 0$, $h$ should have a local minimum at $c=0$.
+Since $h$ is differentiable, we can obtain the following result by taking a first derivative at $c=0$:
+$$ h'(0) = 2\Cov(\delta, U) = 0. $$
+Since $EU=0$, we finally obtain  $E_\theta U\delta = 0$ for all $\theta \in \Omega$.
+\end{proof}
+
+
+%% # 4.7
+\section{Problem 4.7}
+Suppose $\delta_1$ is a UMVU estimator of $g_1(\theta)$, $\delta_2$ is UMVU estimator of $g_2(\theta)$, and that $\delta_1$ and $\delta_2$ both have finite variance for all $\theta$.
+Show that $\delta_1 + \delta_2$ is UMVU for $g_1(\theta) + g_2(\theta)$.\\
+\underline{Hint}: Use the result in the previous problem.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+We can easily show that $\delta_1 + \delta_2$ is unbiased for $g_1(\theta)+g_2(\theta)$. \\
+Now, suppose $\delta$ is any unbiased estimator of $g_1(\theta)+g_2(\theta)$ with $\Var(\delta) < \infty$.
+Let $U=\delta - \delta_1-\delta_2$, then $U$ is an unbiased estimator of 0 ($\because ~ EU = E\delta - E\delta_1-E\delta_2= 0$). \\
+By Problem 4.6, 
+$$ \Cov(U,\delta_1 + \delta_2) = \Cov(U,\delta_1) + \Cov(U,\delta_2) = 0.$$
+Since $\delta = U+\delta_1+\delta_2$, we obtain the following result:
+\begin{align*}
+	\Var(\delta) &= \Var(U) + \Var(\delta_1+\delta_2) \\
+			  &\ge \Var(\delta_1 + \delta_2).
+\end{align*}
+Because $\delta$ is arbitrary, $\delta_1 +\delta_2$ is UMVU.
+\end{proof}
+
+
+%% # 4.8
+\section{Problem 4.8}
+Let $X_1,\dots,X_n$ be i.i.d. absolutely continuous variables with common density $f_\theta, ~ \theta > 0$, given by
+$$ f_\theta(x) = \begin{cases}
+\theta/x^2, ~~~~~ x > \theta, \\
+0,~~~~~~~~~~ x \le \theta.
+\end{cases} $$
+Find the UMVU estimator for $g(\theta)$ if $g(\theta)/\theta^n \to 0$ as $\theta \to \infty$ and $g$ is differentiable.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+The joint density is
+$$ \theta^n/(x_1\cdots x_n)^2 1_{\{\min x_i\}}. $$
+By factorization theorem, $T=\min X_i$ is sufficient. \\
+To obtain the density of $T$, the cumulative distribution function is
+$$ P(T \le t) = 1- P(\min X_i > t) = 1-\prod_i P(X_i > t) = 1-\left(\frac{\theta}{t}\right)^n, ~~~ t > \theta. $$
+Take a derivative, we can obtain the density,
+$$ f(t) = \frac{n\theta^n}{t^{n+1}}, ~~~ t >\theta. $$
+
+Now, suppose $\delta(T)$ is the unbiased estimator of $g(\theta)$, then
+\begin{align*}
+	\int_\theta^\infty \delta(t)\frac{n\theta^n}{t^{n+1}}dt = g(\theta) &\Longleftrightarrow n\int_\theta^\infty \delta(t)t^{-n-1}dt = \frac{g(\theta)}{\theta^n} \\
+			&~~ \text{Taking a derivative w.r.t. } \theta, \\
+			&\Longleftrightarrow -n\delta(t)t^{-n-1} = g'(t)t^{-n}-ng(t)t^{-n-1}.
+\end{align*}
+$$ \therefore ~ \delta(t) = g(t) - \frac{g'(t)}{nt}. $$
+From the above result, $g(t) = c$ for any constant $c$ implies $\delta(t) = c$.
+Therefore $T$ is complete.\\
+In summary, $T$ is complete sufficient, and $\delta(T)$ is the function of $T$.
+Therefore, by Theorem 4.4, $\delta(T)$ is UMVU.
+\end{proof}
+
+
+%% # 4.10
+\section{Problem 4.10}
+Suppose $X$ is an exponential variable with density $p_\theta(x) = \theta e^{-\theta x}, ~ x > 0; ~ p_\theta (x) = 0,$ otherwise.
+Find the UMVU estimator for $1/(1+\theta)$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+Since $X$ is a full-rank exponential family, $T=X$ is complete sufficient.\\
+Let $\delta(X)$ be an unbiased estimator of $1/(1+\theta)$, and represent as $\delta(x) = \sum_{n=0}^\infty c_nx^n$ by power series. Then,
+\begin{align*}
+	E\delta(X) &= \int_0^\infty \left( \sum_{n=0}^\infty c_nx^n \right) \theta e^{-\theta x}dx \\
+			& \text{By Fubini theorem,} \\
+			&= \sum_{n=0}^\infty \int_0^\infty c_n\theta x^n e^{-\theta x}dx \\
+			& \text{The inner integration follows } \Gamma(n+1, 1/\theta) \text{ with rate parameter.} \\
+			&= \sum_{n=0}^\infty \frac{c_n \Gamma(n+1)}{\theta^n} \\
+			&= \sum_{n=0}^\infty \frac{c_n n!}{\theta^n}. \tag{$*$}
+\end{align*}
+Meanwhile, $1/(1+\theta)$ can be written as the geometric series,
+\begin{equation*}
+	\frac{1}{1+\theta} = \frac{1/\theta}{1+1/\theta} = -\sum_{n=1}^\infty \left(-\frac{1}{\theta}\right)^n = \sum_{n=1}^\infty \frac{(-1)^{n+1}}{\theta^n} ~~\text{ for } \theta >1. \tag{**} 
+\end{equation*}
+Since $\delta$ is unbiased, ($*$) and ($**$) should be identical. Thus,
+$$ c_0 = 0, ~ c_n = \frac{(-1)^{n+1}}{n!}, ~n=1,2,\dots. $$
+Therefore, 
+$$ \delta(x) = \sum_{n=1}^\infty \frac{(-1)^{n+1}}{n!}x^n = -\sum_{n=1}^\infty \frac{(-x)^n}{n!} = 1-e^{-x} ~~\text{ for } \theta > 1.$$
+Since $\delta$ is the function of the complete sufficient statistic $X$, $\delta(X)$ is UMVU by Theorem 4.4.
+
+{\color{blue} If $\theta \le 1$, direct하게 unbiased임을 보일 수 있다?? 어떻게?? }
+\end{proof}
+
+
+%% # 4.11
+\section{Problem 4.11}
+Let $X_1,\dots,X_3$ be i.i.d. geometric variables with common mass function $f_\theta(x) = P_\theta(X_i=x)=\theta(1-\theta)^x, ~ x=0,1,\dots$.
+Find the UMVU estimator of $\theta^2$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+Since the joint mass, $\theta^3(1-\theta)^{x_1+x_2+x_3}$, is the full-rank exponential family, $T=X_1+X_2+X_3$ is complete sufficient. \\
+Denote $g(\theta) = \theta^2$, and let $\delta(X) = 1_{\{X_1= 0, X_2=0\}}$, then $\delta(X)$ be an unbiased estimator of $g(\theta)$ ($\because ~ E\delta(X) = P(X_1=0,X_2=0) = \theta^2$). \\
+Define $\eta(T) = E[\delta(X)|T] = P(X_1=0, X_2=0|T)$. Then it is UMVU by Theorem 4.4.
+To obtain $\eta(t)$, we first find the density of $T$ by using the transformation $T=X_1+X_2+X_3$ from the joint density,
+$$ P(T=t) = {t+2 \choose 2} \theta^3(1-\theta)^t = {t+2 \choose 2} \theta^2 \Big[\theta(1-\theta)^t\Big]. $$
+Because we already have 2 successes in first $t+2$ trials of total $t+3$ trials, we should add the combination term. (See RHS!!) \\
+Next, the joint mass of $X_1,X_2,T$ is
+$$ P(X_1=0, X_2 =0, T=t) = P(X_1=0, X_2 =0, X_3 = t) = \theta^3(1-\theta)^t, $$
+from the joint mass of $X_1,X_2,X_3$. \\
+Therefore, 
+$$ \eta(t) = \frac{P(X_1=0,X_2=0,T=t)}{P(T=t)} = 1 \bigg/ {t+2 \choose 2} = \frac{2}{(t+2)(t+1)}, $$
+$$ \therefore ~ \eta(T) = \frac{2}{(T+2)(T+1)} $$
+is the UMVU estimator of $\theta^2$.
+\end{proof}
+
+
+%% # 4.12
+\section{Problem 4.12}
+Let $X$ be a single observation, absolutely continuous with density
+$$ p_\theta(x) = \begin{cases}
+\frac{1}{2}(1+\theta x), ~~~ |x| < 1, \\
+0, ~~~~~~~~~~~~~~ |x| \ge 1.
+\end{cases}$$
+Here $\theta \in [-1,1]$ is an unknown parameter.
+\begin{enumerate}
+	\item[a)] Find a constant $a$ so that $aX$ is unbiased for $\theta$.
+		The expected value is
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            	$$ EX = \int_{-1}^1 \frac{x}{2}(1+\theta x)dx = \frac{1}{4}x^2 + \frac{\theta}{6}x^3 \bigg|_{-1}^1 = \frac{\theta}{3}. $$
+		Therefore, when $a=3$, $aX$ be unbiased.
+            	\end{proof}
+	
+	\item[b)] Show that $b=E_\theta|X|$ is independent of $\theta$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+		By using the procedure in a),
+            	$$ E|X| = \int_{-1}^1 \frac{|x|}{2}(1+\theta x)dx = \frac{1}{2}. $$
+		Thus, $b=E_\theta|X|$ does not depend on $\theta$.
+            	\end{proof}
+	
+	\item[c)] Let $\theta_0$ be a fixed parameter value in $[-1,1]$.
+		Determine the constant $c=c_{\theta_0}$ that minimizes the variance of the unbiased estimator $aX+c\big(|X|-b\big)$ when $\theta=\theta_0$.
+		Is $aX$ uniformly minimum variance unbiased?
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            	To obtain the variance of $aX+c\big(|X|-b\big)$, we first derive the second moments.
+		$$ EX^2 = E|X|^2 = \int_{-1}^1\frac{x^2}{2}(1+\theta x)dx = \frac{x^3}{6}+\frac{\theta x^4}{8}\bigg|_{-1}^1 = \frac{1}{3}, $$
+		$$ EX|X| = \int_{-1}^1 \frac{x|x|}{2}(1+\theta x)dx = \frac{\theta}{4}. $$
+		From the previous steps, we obtain $a=3$ and $b=E|X|$.
+		Under $\theta=\theta_0$, the variance be
+		\begin{align*}
+			\Var_{\theta_0}\Big(3X+c\big(|X| - E|X|\big)\Big) &= 9\Var_{\theta_0}(X) + 6c\Cov_{\theta_0}\big(X,|X|-E|X|\big) + c^2\Var_{\theta_0}\big(|X| - E|X|\big) \\
+										&= 9\Var_{\theta_0}(X) + 6c\Cov_{\theta_0}\big(X,|X|-E|X|\big) + c^2\Var_{\theta_0}\big(|X|\big) \\
+										&= 9\left(\frac{1}{3}-\frac{\theta_0^2}{9}\right) + 6c\left(\frac{\theta_0}{4}-\frac{1}{2}\cdot\frac{\theta_0}{3}\right) + c^2\left(\frac{1}{3}-\frac{1}{4}\right)  \\
+										&= 3-\theta_0^2 + \frac{\theta_0}{2}c +\frac{1}{12}c^2. \tag{$*$}
+		\end{align*}
+		Since ($*$) is convex with respect to $c$, take a derivative, 
+		$$ \frac{\theta_0}{2} + \frac{c}{6} = 0 $$
+		Therefore, ($*$) has minimum when $c=-3\theta_0$. \\
+		Meanwhile, $\Var_{\theta_0}(3X) = 3-\theta_0^2$ which is greater than ($*$).
+		Therefore, $3X$ is not UMVU.
+            	\end{proof}
+\end{enumerate}
+
+
+%% # 4.24
+\section{Problem 4.24}
+In the normal one-sample problem, the statistic $t = \sqrt{n} \overline X/S$ has the non-central $t$-distribution on $n-1$ degrees of freedom and non-centrality parameter $\delta = \sqrt{n}\mu/\sigma$.
+Use our results on distribution theory for the one-sample problem to find the mean and variance of $t$.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	Note that $E\overline X = \mu = \sigma\delta/\sqrt{n}, ~ \Var(\overline X) = \sigma^2/n$, and the formula $ES^r$ in (4.10) page 70. \\
+	Since $\overline X$ and $S^2$ are independent, 
+	$$ Et = E\left[\sqrt{n}\frac{\overline X}{S}\right] = \sqrt{n}(E\overline X) (E S^{-1}) = \sqrt{n}\frac{\sigma\delta}{\sqrt{n}} \frac{\sigma^{-1}2^{-\frac{1}{2}}\Gamma\big[(-1+n-1)/2\big]}{(n-1)^{-\frac{1}{2}}\Gamma\big[(n-1)/2\big]} = \delta \frac{\sqrt{n-1}~\Gamma\big[(n-2)/2\big]}{\sqrt{2}~\Gamma\big[(n-1)/2\big]}, $$
+	\begin{align*}
+	Et^2 &= n(E\overline X^2)(ES^2) = n\left( \frac{\sigma^2}{n}+\frac{\sigma^2\delta^2}{n} \right) \frac{\sigma^{-2}2^{-1}~\Gamma\big[(-2+n-1)/2\big]}{(n-1)^{-1}~\Gamma\big[(n-1)/2\big]}  \\
+		&= (1+\delta^2)\frac{n-1}{2} \frac{\Gamma\big[(n-3)/2\big]}{\Gamma\big[(n-3)/2+1\big]} = (1+\delta^2)\frac{n-1}{n-3}.
+	\end{align*}
+	$$ \Var(t) = Et^2-(Et)^2 = \frac{n-1}{n-3} + \delta^2\left[ \frac{n-1}{n-3} - \frac{(n-1)\left(\Gamma\big[(n-2)/2\big]\right)^2}{2\left(\Gamma\big[(n-1)/2\big]\right)^2} \right]. $$
+\end{proof}
+
+
+%% # 4.28
+\section{Problem 4.28}
+Let $X_1,\dots,X_n$ be i.i.d. from the uniform distribution on $(0,\theta)$.
+\begin{enumerate}
+	\item[a)] Use the Hammersley-Chapman-Robbins inequality to find a lower bound for the variance of an unbiased estimator of $\theta$.
+		This bound will depend on $\Delta$. Note that $\Delta$ cannot vary freely but must lie in a suitable set.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Since $\delta$ is the unbiased estimator of $\theta$, $g(\theta) = \theta$ and $g(\theta+\Delta) - g(\theta) = \Delta$. 
+		By Hammersley-Chapman-Robbins inequality, the lower bound for the variance of $\delta$ be
+		$$ LB = \frac{\Delta^2}{E_\theta\left[\frac{p_{\theta+\Delta}(X)}{p_\theta(X)} - 1 \right]^2}. $$
+		Since $X_i \sim Uniform(0,\theta)$, $p_\theta(X) = 0 \Rightarrow p_{\theta+\Delta}(X) = 0$.
+		Thus $\Delta$ should be negative and $\theta+\Delta > 0$, therefore $\Delta \in (-\theta, 0)$.
+		$$ \frac{p_{\theta+\Delta}(X)}{p_\theta(X)} = \begin{cases}
+			\frac{\theta^n}{(\theta+\Delta)^n}, ~~~ \max\{X_1,\dots,X_n\} < \theta+\Delta \text{ with probability } \frac{(\theta+\Delta)^n}{\theta^n} \text{ under } P_\theta, \\
+			0, ~~~~~~~~~~~\text{otherwise}.
+		\end{cases} $$
+		For simplicity, denote $Y = p_{\theta+\Delta}(X)/p_\theta(X)$, then $EY=1$ and $EY^2 = \frac{\theta^n}{(\theta+\Delta)^n}$.
+		Thus, the expectation in the denominator is 
+		$$ E(Y-1)^2 = Var(Y) = EY^2 - [EY]^2 = \frac{\theta^n}{(\theta+\Delta)^n} - 1. $$
+		Therefore, the lower bound be
+		\begin{equation*}
+		 LB = \frac{\Delta^2}{\frac{\theta^n}{(\theta+\Delta)^n} - 1}. \tag{$*$}
+		\end{equation*}
+            	\end{proof}
+	
+	\item[b)] In principle, the best lower bound can be found taking the supremum over $\Delta$.
+		This calculation cannot be done explicitly, but an approximation is possible.
+		Suppose $\Delta = -c\theta/n$. Show that the lower bound for the variance can be written as $\theta^2g_n(c)/n^2$.
+		Determine $g(c) = \limn g_n(c)$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Plug in $\Delta = -c\theta/n$ to ($*$), then
+			$$ LB = \frac{c^2\theta^2 / n^2}{\left( 1-\frac{c}{n}\right)^{-n} - 1}. $$
+			Therefore,
+			$$ g_n(c) = \frac{c^2}{\left( 1-\frac{c}{n}\right)^{-n} - 1}, $$
+			$$ g(c) = \limn g_n(c) = \frac{c^2}{e^c-1}. $$
+            	\end{proof}
+	
+	\item[c)] Find the value $c_0$ that maximizes $g(c)$ over $c \in (0,1)$ and give an approximate lower bound for the variance of $\delta$. (The value $c_0$ cannot be found explicitly, but you should be able to come up with a numerical value.)
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Taking a derivative,
+			$$ \frac{\partial g(c)}{\partial c} = \frac{\partial }{\partial c} \left( \frac{c^2}{e^c-1} \right) = \frac{2c(e^c-1)-c^2e^c}{(e^c-1)^2} = 0 $$
+			\begin{align*}
+            			&\Longleftrightarrow 2c(e^c-1) = c^2e^c \\
+            			&\Longleftrightarrow 2e^c-2 = ce^c \\
+            			&\Longleftrightarrow 1-e^c = \frac{c}{2} \\
+            			&\Longleftrightarrow e^{-c} = 1-\frac{c}{2}.
+			\end{align*}
+			By numerical method, $c_0 = 1.59362$.
+			Therefore, an approximated lower bound of $g(c_0)\theta^2/n^2 = 0.64761 \theta^2/n^2$.
+            	\end{proof}
+\end{enumerate}
+
+
+%% # 4.30
+\section{Problem 4.30}
+Suppose $X_1,\dots,X_n$ are independent with $X_i \sim N(\alpha+\beta t_i, 1), ~ i=1,\dots, n$, where $t_1,\dots,t_n$ are known constants and $\alpha, \beta$ are unknown parameters.
+\begin{enumerate}
+	\item[a)] Find the Fisher information matrix $I(\alpha,\beta)$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		The log likelihood of $\theta = (\alpha, \beta)$ is
+			$$ l(\beta) = \frac{n}{2}\log(2\pi) - \frac{1}{2}\sum_{i=1}^n (x_i-\alpha-\beta t_i)^2. $$
+			Take derivatives,
+			\begin{align*}
+				&\frac{\partial l}{\partial \alpha} = \sum_i (x_i-\alpha-\beta t_i),  &&\frac{\partial l}{\partial \beta} = \sum_i (x_i-\alpha-\beta t_i)t_i, \\
+				&\frac{\partial^2 l}{\partial \alpha^2} = -n,  &&\frac{\partial^2 l}{\partial \beta^2} = -\sum_i t_i^2, \\
+				&\frac{\partial^2 l}{\partial \alpha \beta} = -\sum_i t_i 
+			\end{align*}
+			Therefore, the Fisher information matrix be
+			$$ I(\alpha, \beta) = -E \left[\nabla l(\alpha,\beta)\right]^2 =  \begin{pmatrix}
+			n & \sum_i t_i \\
+			\sum_i t_i & \sum_i t_i^2
+			\end{pmatrix}. $$
+            	\end{proof}
+	
+	\item[b)] Give a lower bound for the variance of an unbiased estimator of $\alpha$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Since $g(\theta) = \alpha$, by Cramer-Rao lower bound,
+			\begin{align*}
+				LB &= \nabla g(\theta)^T I^{-1}(\alpha,\beta) \nabla g(\theta) \\
+				     &= (1,0)\frac{\begin{pmatrix}
+                    			\sum_i t_i^2 & -\sum_it_i \\
+                    			-\sum_i t_i & n
+                    			\end{pmatrix}}{n\sum_it_i^2 - (\sum_it_i)^2} {1 \choose 0} = \frac{1}{n\sum_it_i^2 - (\sum_it_i)^2}\left(\sum_it_i^2, ~ -\sum_i t_i\right) {1 \choose 0} \\
+				     &= \frac{\sum_it_i^2}{n\sum_it_i^2 - (\sum_it_i)^2} \\
+				     &= \frac{1/n}{1-(\sum_it_i)^2/\sum_i t_i^2}.
+			\end{align*}
+            	\end{proof}
+	
+	\item[c)] Suppose we know the value of $\beta$. Give a lower bound for the variance of an unbiased estimator of $\alpha$ in this case.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Since $\beta$ is known, $\theta = \alpha$.
+			Then the lower bound be
+			$$ LB = \frac{g'(\theta)}{I(\theta)} = \frac{1}{n}. $$
+            	\end{proof}
+	
+	\item[d)] Compare the estimators in parts (b) and (c). When are the bounds the same?
+		If the bounds are different, which is larger?
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		If $\sum_i t_i = 0$, two lower bounds be same. And by comparing the lower bounds,
+			$$ LB_{b)} = \frac{1/n}{1-(\sum_it_i)^2/\sum_i t_i^2} >  \frac{1}{n} = LB_{c)}. $$
+            	\end{proof}
+	
+	\item[e)] Give a lower bound for the variance of an unbiased estimator of the product $\alpha\beta$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Since $g(\theta) = \alpha \beta$, $\nabla g(\theta) = {\beta \choose \alpha}$.
+			Then the lower bound be
+			\begin{align*}
+				LB &= \nabla g(\theta)^T I^{-1}(\alpha, \beta) \nabla g(\theta) \\
+				      &= (\beta, ~ \alpha) \frac{\begin{pmatrix}
+                    			\sum_i t_i^2 & -\sum_it_i \\
+                    			-\sum_i t_i & n
+                    			\end{pmatrix}}{n\sum_it_i^2 - (\sum_it_i)^2} {\beta \choose \alpha} \\
+				      &= \frac{1}{n\sum_it_i^2 - (\sum_it_i)^2} \left( \beta \sum_i t_i^2-\alpha\sum_it_i, ~ -\beta\sum_it_i + n\alpha \right) {\beta \choose \alpha} \\
+				      &= \frac{\beta^2\sum_it_i^2 - 2\alpha\beta\sum_it_i + n\alpha^2}{n\sum_it_i^2 - (\sum_it_i)^2}.
+			\end{align*}
+            	\end{proof}
+\end{enumerate}
+
+
+%% # 4.31
+\section{Problem 4.31}
+Find the Fisher information for the Cauchy location family with densities $p_\theta$ given by
+$$ p_\theta(x) = \frac{1}{\pi\big[(x-\theta)^2+1\big]}. $$
+Also, what is the Fisher information for $\theta^3$?
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	Since $p_\theta$ is the location family, by using Example 4.11 in page 75,
+	\begin{align*}
+		I(\theta) &= \int \frac{[f'(x)]^2}{f(x)}dx = \int \frac{\left[ -\frac{2\pi x}{\pi(x^2+1)} \right]^2}{1/[\pi(x^2+1)]} = \int \frac{4x^2}{\pi(x^2+1)^3}dx \\
+			     & \text{Change of variable } x = \tan t \Rightarrow dx = \frac{\cos^2t + \sin^2t}{\cos^2t} = \frac{1}{\cos^2t}dt \\
+			     &= \frac{4}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{\tan^2t}{(\tan^2+1)^3}\frac{1}{\cos^2t}dt \\
+			     &= \frac{4}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{\sin^2t}{\cos^2t}\cos^6t\frac{1}{\cos^2t}dt ~~ (\because \tan^2t+1 = 1/\cos^2t) \\
+			     &= \frac{4}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \sin^2t\cos^2t dt \\
+			     &= \frac{4}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{1-\cos 2x}{2}\frac{1+\cos 2x}{2} dt \\
+			     &= \frac{4}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{1-\cos^2 2x}{4} dt \\
+			     &= \frac{1}{\pi}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{1-\cos 4x}{2} dt \\
+			     &= \frac{1}{2\pi} \left[t - \frac{1}{4}\sin 4t\right]_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \\
+			     &= \frac{1}{2}.
+	\end{align*}
+	Let $\xi = \theta^3$, then $\theta = \xi^{1/3} := h(\xi)$.
+	$$ \therefore I(\xi) = [h'(\xi)]^2 I\big( h(\xi) \big) = \left(\frac{1}{3}\xi^{-2/3}\right)^2 \frac{1}{2} = \frac{1}{18\xi^{4/3}}. $$
+\end{proof}
+
+
+%% # 4.32
+\section{Problem 4.32}
+Suppose $X$ has a Poisson distribution with mean $\theta^2$, so the parameter $\theta$ is the square root of the usual parameter $\lambda =EX$. Show that the Fisher information $I(\theta)$ is constant.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	$p_\theta(X) = (\theta^2)^xe^{-\theta^2}/x!$ and $l(\theta) = \log 1/x! + 2x\log\theta-\theta^2$.
+	$$ \frac{\partial l(\theta)}{\partial \theta} = \frac{2x}{\theta}-2\theta,~~~ \frac{\partial^2 l(\theta)}{\partial \theta^2} = -\frac{2x}{\theta^2}-2. $$
+	$$ \therefore I(\theta) = E\left( -\frac{\partial^2 l(\theta)}{\partial \theta^2} \right) = \frac{2}{\theta^2}EX+2 = 4.$$
+\end{proof}
+
+
+%% # 4.33
+\section{Problem 4.33}
+Consider the exponential distribution with failure rate $\lambda$. Find a function $h$ defining a new parameter $\theta=h(\lambda)$ so that Fisher information $I(\theta)$ is constant.
+
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	Let the original parameter is $\theta$, and reparameterized parameter is $\lambda$. \\
+	$p_\lambda(x) = \lambda e^{-\lambda x}$, $l(\lambda) = \log\lambda - \lambda x$.
+	$$ \frac{\partial l(\lambda)}{\partial \lambda} = \frac{1}{\lambda}-x,~~~ \frac{\partial^2 l(\lambda)}{\partial \lambda^2} = -\frac{1}{\lambda^2}. $$
+	$$ \tilde I(\lambda) = \frac{1}{\lambda^2}. $$
+	From (4.18) in page 74,
+	$$ I(\theta) = \frac{\tilde I(\lambda)}{[h'(\lambda)]^2} = \frac{1}{[\lambda h'(\lambda)]^2}. $$
+	Thus, if $h(\lambda)=\log \lambda$, $I(\theta)$ be constant.
+\end{proof}
+
+
+%% # 4.34
+\section{Problem 4.34}
+Consider an autoregressive model in which $X_1 \sim N\big(\theta, \sigma^2/(1-\rho^2)\big)$ and the conditional distribution of $X_{j+1}$ given $X_1=x_1,\dots.X_j=x_j$, is $N\big(\theta+\rho(x_j-\theta), \sigma^2\big), ~ j=1,\dots,n-1$.
+\begin{enumerate}
+	\item[a)] Find the Fisher information matrix, $I(\theta,\sigma)$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			The joint density is
+            		$$ p(x_1,\dots,x_n) = p(x_1)p(x_2|x_1)\cdots(x_n|x_1,\dots,x_n), $$
+			thus the likelihood function be
+			\begin{align*}
+				l(\theta,\sigma) &= l(x_1) + \sum_{j=1}^{n-1}l(x_{j+1}|x_1,\dots,x_j) \\
+							&= \log\frac{1}{\sqrt{2\pi}\sqrt{1-\rho^2}}-\log\sigma - \frac{1-\rho^2}{2\sigma^2}(x_1-\theta)^2 \\
+							&~~~~~ -\frac{1}{\sigma^2} \sum_{j=1}^{n-1} [x_{j+1}-\theta-\rho(x_j-\theta)]^2 + \log\left( \frac{1}{\sqrt{2\pi}\sigma} \right)^{n-1} \\
+							&= - \frac{1-\rho^2}{2\sigma^2}(x_1-\theta)^2 -\frac{1}{2\sigma^2} \sum_{j=1}^{n-1} [x_{j+1} -\rho x_j -\theta(1-\rho)]^2 \\
+							&~~~~~ -\frac{n}{2}\log(2\pi)-n\log\sigma+\log\sqrt{1-\rho^2}.
+			\end{align*}
+			Take derivatives,
+			$$ \frac{\partial l(\theta,\sigma)}{\partial \theta} = \frac{1-\rho^2}{\sigma^2}(x_1-\theta) + \frac{1-\rho}{\sigma^2}\sum_{j=1}^{n-1} [x_{j+1}-\rho x_j - \theta(1-\rho)], $$
+			$$ \frac{\partial^2 l(\theta,\sigma)}{\partial \theta^2} = -\frac{1-\rho^2}{\sigma^2} - \frac{(n-1)(1-\rho)^2}{\sigma^2}, $$
+			$$ \frac{\partial^2 l(\theta,\sigma)}{\partial \theta \partial \sigma} = -\frac{2(1-\rho^2)\epsilon_1}{\sigma^3} + \frac{2(1-\rho)}{\sigma^3}\sum_{j=1}^{n-1}\eta_{j+1}, $$
+			$$  \frac{\partial l(\theta,\sigma)}{\partial \sigma} = \frac{(1-\rho^2)(x_1-\theta)^2}{\sigma^3} + \frac{1}{\sigma^3}\sum_{j=1}^{n-1}\eta_{j+1}^2-\frac{n}{\sigma}, $$
+			$$  \frac{\partial^2 l(\theta,\sigma)}{\partial \sigma^2} = -\frac{3(1-\rho^2)(x_1-\theta)^2}{\sigma^4} -\frac{3}{\sigma^4}\sum_{j=1}^{n-1}\eta_{j+1}^2 +\frac{n}{\sigma^2}, $$
+			where $\epsilon_j = x_j-\theta$, and $\eta_{j+1} = \epsilon_{j+1}-\rho\epsilon_j$. (See \underline{Hint} in part c)) \\
+			We can easily infer that $\epsilon_1 \sim N\big(0, \sigma^2/(1-\rho^2)\big)$ and $\eta_{j+1}|_{X_1=x_1,\dots,X_j=x_j} = \eta_{j+1}|_{\epsilon_1,\eta_2,\dots,\eta_j} \sim N(0,\sigma^2)$.
+			{\color{blue} From this, $\eta_2,\dots,\eta_n \sim$ i.i.d. $N(0,\sigma^2)$ and these are independent of $\epsilon_1$. (왜???)} \\
+			Therefore, the information matrix is given by taking expectation,
+			$$ I(\theta,\sigma) = \begin{pmatrix}
+			\frac{1-\rho^2+(n-1)(1-\rho)^2}{\sigma^2} & 0 \\
+			0 & \frac{2n}{\sigma^2}
+			\end{pmatrix}. $$
+            	\end{proof}
+	
+	\item[b)] Give a lower bound for the variance of an unbiased estimator of $\theta$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			Since $g(\theta,\sigma) = \theta$,
+            		$$ LB = \nabla g(\theta,\sigma)^T I^{-1}(\theta,\sigma) \nabla g(\theta,\sigma) = (1,0) I^{-1}(\theta,\sigma) {1 \choose 0} = \frac{\sigma^2}{1-\rho^2+(n-1)(1-\rho)^2}. $$
+            	\end{proof}
+	
+	\item[c)] Show that the sample average $\overline X = (X_1 + \cdots + X_n)/n$ is an unbiased estimator of $\theta$, compute its variance, and compare its variance with the lower bound. \\
+		\underline{Hint}: Define $\epsilon_j = X_j-\theta$ and $\eta_{j+1} = \epsilon_{j+1}-\epsilon_j$.
+		Use smoothing to argue that $\eta_2,\dots,\eta_n$ are i.i.d. $N(0,\sigma^2)$ and are independent of $\epsilon_1$.
+		Similarly, $X_i$ is independent of $\eta_{i+1},\eta_{i+2},\dots$.
+		Use these facts to find first $ \Var (X_2) = \Var(\epsilon_2)$, then $\Var(X_3), \Var(X_4), \dots$.
+		Finally find $\Cov(X_{i+1},X_i), n\Cov(X_{i+2},X_i)$, and so on.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Let $\bar \epsilon = \frac{1}{n}\sum_j\epsilon_j = \overline X - \theta$.
+			Since $E\epsilon_j = 0$, $E (\overline X - \theta) = E(\bar\epsilon) = 0$. 
+			Thus $\overline X$ is unbiased estimator of $\theta$.
+			
+			Since $\epsilon_2 = \rho\epsilon_1 + \eta_2$, $\Var(\epsilon_2) = \rho^2\Var(\epsilon_1) + \Var(\eta_2) = \sigma^2 + \frac{\rho^2\sigma^2}{1-\rho^2} = \frac{\sigma^2}{1-\rho^2}$.
+			In general, $\epsilon_i = \rho \epsilon_{i-1} + \eta_i$ and we can obtain $\Var(X_i) = \Var(\epsilon_i) = \frac{\sigma^2}{1-\rho^2}$. \\
+			If $i > j$, 
+			\begin{align*}
+				\epsilon_i &= \rho\epsilon_{i-1} + \eta_i \\
+						&= \rho^2(\epsilon_{i-2}+\eta_{i-1}) + \eta_i \\
+						&= \cdots \\
+						&= \rho^{i-j}\epsilon_j + \rho^{i-j+1}\eta_{j+1} + \cdots + \rho \eta_{i-1} + \eta_i.
+			\end{align*}
+			From this,
+			$$ \Cov(X_i,X_j) = \Cov(\epsilon_i,\epsilon_j) = \rho^{|i-j|} \frac{\sigma^2}{1-\rho^2}. $$
+			Then, the variance of $\overline X$ is
+			\begin{align*}
+				\Var(\overline X) &= \Var(\overline \epsilon) \\
+							 &= \frac{1}{n^2}\Var\left(\sum_{i=1}^n \epsilon_i\right) =  \frac{1}{n^2}\Cov\left(\sum_{i=1}^n \epsilon_i, \sum_{i=1}^n \epsilon_i\right) \\
+							 &= \frac{1}{n^2}\left[ \sum_{i=1}^n\Cov(\epsilon_i, \epsilon_i) + 2\sum_{i>j}\Cov(\epsilon_i,\epsilon_j) \right] \\
+							 &= \frac{\sigma^2}{n^2(1-\rho^2)} \left[ n + 2\left\{ (n-1)\rho+(n-2)\rho^2 + \cdots + \rho^{n-1} \right\} \right] \\
+							 &= \frac{\sigma^2}{n^2(1-\rho^2)} \left[ n + 2\sum_{j=1}^{n-1}(n-j)\rho^j \right] \\
+							 &= \frac{\sigma^2}{n^2(1-\rho^2)} \left[ n + 2\left( n\frac{\rho-\rho^{n}}{1-\rho} -  \frac{\rho-\rho^{n+1}}{(1-\rho)^2} + \frac{n\rho^n}{1-\rho} \right) \right] \tag{$*$} \\
+							 &=  \frac{\sigma^2}{n^2(1-\rho^2)} \left[ n + 2\frac{n\rho-n\rho^2-\rho+\rho^{n+1}}{(1-\rho)^2} \right] \\
+							 &=  \frac{\sigma^2}{n^2(1-\rho^2)} \left[ \frac{n-2n\rho+n\rho^2+2n\rho-2n\rho^2-2\rho+2\rho^{n+1}}{(1-\rho)^2} \right] \\
+							 &= \frac{\sigma^2}{n^2(1-\rho^2)} \left[ \frac{-n\rho^2-2\rho+n+2\rho^{n+1}}{(1-\rho)^2} \right] \\
+							 &= \frac{\sigma^2}{n^2(1-\rho^2)} \left[ \frac{n(1-\rho^2)-2(\rho-\rho^{n+1})}{(1-\rho)^2} \right] \\
+							 &= \frac{\sigma^2}{n(1-\rho)^2} - \frac{2\sigma^2\rho(1-\rho^n)}{n^2(1-\rho^2)(1-\rho)^2}.
+			\end{align*}
+			
+			\underline{Note.} ($*$) is obtained as follows:
+			\begin{align*}
+				\sum_{j=1}^{n-1}\rho^j &= \frac{\rho(1-\rho^{n-1})}{1-\rho}, \\
+				\sum_{j=1}^{n-1}j\rho^j &= \sum_j \rho \frac{d}{d\rho}\rho^j = \rho\frac{d}{d\rho}\sum_{j=1}^{n-1}\rho^j \\
+								   &= \rho \frac{d}{d\rho} \left( \frac{\rho-\rho^n}{1-\rho} \right) \\
+								   &= \rho \frac{(1-n\rho^{n-1})(1-\rho)+(\rho-\rho^n)}{(1-\rho)^2} \\
+								   &= \rho \frac{1-\rho-n\rho^{n-1}+n\rho^n+\rho-\rho^n}{(1-\rho)^2} \\
+								   &= \rho \frac{1-\rho^n - n\rho^{n-1}(1-\rho)}{(1-\rho)^2} \\
+								   &= \frac{\rho-\rho^{n+1}}{(1-\rho)^2} - \frac{n\rho^n}{1-\rho}.
+			\end{align*}
+            	\end{proof}
+\end{enumerate}
