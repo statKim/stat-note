@@ -1,0 +1,282 @@
+\chapter{Curved Exponential Families}
+
+\section{Problem 5.1}
+Suppose $X$ has a binomial distribution with $m$ trials and success probability $\theta$, $Y$ has a binomial distribution with $n$ trials and success probability $\theta^2$, and $X$ and $Y$ are independent.
+\begin{enumerate}
+	\item[a)] Find a minimal sufficient statistic $T$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			Note that $f(x) = {m \choose x} \theta^x(1-\theta)^{m-x}$ and $f(y) = {n \choose y} (\theta^2)^y (1-\theta^2)^{n-y}$.
+			Then the joint density is
+			$$ f(x,y) = {m \choose x} {n \choose y} \exp\left[ x\log\frac{\theta}{1-\theta}+y\log\frac{\theta^2}{1-\theta^2} + m\log(1-\theta) + n\log(1-\theta^2) \right]. $$
+			Since the canonical parameter $\eta = \left( \log\frac{\theta}{1-\theta}, \log\frac{\theta^2}{1-\theta^2} \right)$ does not satisfy a linear constraint, the joint density is the curved exponential family.
+			Therefore, $T=(X,Y)$ is minimal sufficient.
+		\end{proof}
+	
+	\item[b)] Show that $T$ is not complete, providing a non-trivial function $f$ with $E_\theta f(T)=0$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Note that $ET_1 = EX = m\theta, ~ ET_1^2 = EX^2 = m\theta(1-\theta)+m^2\theta^2$ and $ET_2 = EY = n\theta^2$.\\
+			Now we let 
+			$$ f(T) = T_1^2 - T_1 - \frac{m(m-1)}{n}T_2, $$
+			then $E_\theta f(T) = 0$ for all $\theta \in (0,1)$.
+			But $f(T)$ is not always 0. Thus $T$ is not complete.
+            	\end{proof}
+\end{enumerate}
+
+
+
+\section{Problem 5.2}
+Let $X$ and $Y$ be independent Bernoulli variables with $P(X=1)=p$ and $P(Y=1)=h(p)$ for some known function $h$.
+\begin{enumerate}
+	\item[a)] Show that the family of joint distributions is a curved exponential family unless
+		$$ h(p) = \frac{1}{1+\exp\left\{a+b\log\frac{p}{1-p}\right\}} $$
+		for some constants $a$ and $b$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			The joint density is
+			$$ f(x,y) = p^x(1-p)^{1-x}h(p)^y\big(1-h(p)\big)^{1-y} = \exp\left[ x\log\left(\frac{p}{1-p}\right) + y\log\left(\frac{h(p)}{1-h(p)}\right) \right] (1-p)\big(1-h(p)\big). $$
+			If $h(p)$ defined as the above for some constants $a$ and $b$, then
+			$$ \log\left(\frac{h(p)}{1-h(p)}\right) = -\left(a + b \log\left(\frac{p}{1-p}\right) \right) $$
+			which is the linear constraint.
+			Therefore, unless the above case, the family of joint densities is a curved exponential family.
+		\end{proof}
+	
+	\item[b)] Give two functions $h$, one where $(X,Y)$ is minimal but not complete, and one where $(X,Y)$ is minimal and complete.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$ \vspace{-0.5cm}
+            		\begin{enumerate}
+				\item[(i)] \underline{Minimal but not complete} \\
+					From a), the joint density is a curved exponential family except on the above $h$ form. \\
+					If we let a function $h(p) = \frac{p}{2}$, $E_p(X-2Y) = 0$ for all $p \in (0,1)$.
+					But $X-2Y$ is not always 0. Therefore $T$ is not complete.
+				\item[(ii)] \underline{Minimal and complete} \\
+					For some function $g$,
+					$$ E_pg(X,Y) = g(1,1)ph(p) + g(1,0)p\big(1-h(p)\big) + g(0,1)(1-p)h(p) + g(0,0)(1-p)\big(1-h(p)\big). $$
+					To show $T$ is complete, we need to find a function $h$ that $ph(p), p\big(1-h(p)\big), (1-p)h(p)$ are linearly independent.\\
+					If we let $h(p) = p^2$, then
+					\begin{align*}
+					E_pg(X,Y) &= p^3\left[ g(1,1)-g(1,0)-g(0,1)+g(0,0) \right] \\
+							 &~~~+ p^2\left[ g(0,1)-g(0,0) \right] + p\left[g(1,0)-g(0,0)\right] + g(0,0).
+					\end{align*}
+					If this is 0 for all $p\in (0,1)$, it must be $g(0,0)=g(1,0)=g(0,1)=g(1,1) = 0$.
+					Thus $g(X,Y) = 0$ and $T$ is complete.
+			\end{enumerate}
+            	\end{proof}
+\end{enumerate}
+
+
+
+\section{Problem 5.6}
+Two teams A and B play a series of games, stopping as soon as one of the team has 4 wins.
+Assume that game outcomes are independent and that on any given game team A has a fixed chance $\theta$ of winning.
+Let $X$ and $Y$ denote the number of games won by the first and second team, respectively.
+\begin{enumerate}
+	\item[a)] Find the joint mass function for $X$ and $Y$. Show that as $\theta$ varies these mass functions form a curved exponential family.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			First, suppose team A has 4 wins which is the event $X=4$ and $Y=y$.
+			Then, the first $(3+y)$ trials are random and last trial should be the winning of team A, thus the probability be
+			$$ P(X=4, Y=y) = {3+y \choose 3}\theta^4(1-\theta)^y,~~~~ y=0,1,2,3. $$
+			Similarly, 
+			$$ P(X=x, Y=4) = {3+x \choose 3}\theta^x(1-\theta)^4,~~~~ x=0,1,2,3. $$
+			Therefore, the joint mass have the form $h(x,y)\exp\big[ x\log\theta + y\log(1-\theta) \big]$.
+			Since the canonical parameters $\log \theta$ and $\log(1-\theta)$ have non-linear relationship, the family of the joint mass is a curved exponential family.
+		\end{proof}
+	
+	\item[b)] Show that $T=(X,Y)$ is complete.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Let $g$ be an arbitrary function of $X$ and $Y$, and suppose
+			$$ E_\theta g(X,Y) = \sum_{x=0}^3 g(x,4){3+x \choose 3}\theta^x(1-\theta)^4 + \sum_{y=0}^3 g(4,y) {3+y \choose 3}\theta^4(1-\theta)^y = 0, ~~~ \theta \in (0,1). $$
+			Since it is the polynomial in $\theta$, if $\theta \to 0$, then the only constant term $g(0,4)$ is remain (other terms are tend to 0).
+			Thus $g(0,4)$ should be 0. \\
+			If $g(0,4)=0$, then the linear term $g(1,4)$ also should be 0 (dividing by $\theta$ and letting $\theta \to 0$).
+			Similarly $g(2,4)=g(3,4)=0$. \\
+			Then, now remain only
+			$$ \frac{E_\theta g(X,Y)}{\theta^4} = \sum_{y=0}^3 g(4,y) {3+y \choose 3}(1-\theta)^y = 0, $$
+			and this is the polynomial in $1-\theta$.
+			Similarly, we can obtain $g(4,0)=\cdots=g(4,3) = 0$. Therefore, $g(X,Y) = 0$ almost surely. \\
+			By definition of completeness, $T$ is complete.
+            	\end{proof}
+	
+	\item[c)] Find a UMVU estimator of $\theta$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Let $\delta = 1_{\{\text{team A wins the first game}\}}$.
+			Then $\delta$ is unbiased because $E\delta = P(\text{team A wins the first game}) = \theta$.
+			Thus the UMVU estimator of $\theta$ be $E[\delta | T] = P[\delta=1|X,Y]$.
+			By using the joint mass function,
+			\begin{align*}
+			E[\delta=1|X=4,Y=y] &= P(\delta=1| X=4,Y=y) \\
+							&= \frac{P(\delta=1, X=4,Y=y)}{P(X=4,Y=y)} \\
+							&= \frac{\theta^2 {2+y \choose 2}\theta^2(1-\theta)^y}{{3+y \choose 3}\theta^4(1-\theta)^y} \\
+							&= \frac{3}{3+y},
+			\end{align*}
+			and
+			$$ P(\delta=1| X=x,Y=4) = \frac{\theta(1-\theta) {2+x \choose x-1}\theta^{x-1}(1-\theta)^3}{{3+x \choose 3}\theta^x(1-\theta)^4} = \frac{x}{3+x}. $$
+			By combining 2 results, the UMVU estimator of $\theta$ is 
+			$$ \frac{X-1_{\{X=4\}}}{X+Y-1}. $$
+            	\end{proof}
+\end{enumerate}
+
+
+
+\section{Problem 5.7}
+Consider a sequential experiment in which observations are i.i.d. from a Poisson distribution with mean $\lambda$.
+If the first observation $X$ is zero, the experiment stops, and if $X>0$, a second observation $Y$ is observed.
+Let $T=0$ if $X=0$, and let $T=1+X+Y$ if $X>0$.
+\begin{enumerate}
+	\item[a)] Find the mass function for $T$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			$P(T=0) = P(X=0) = e^{-\lambda}$. \\
+			For $k=0,1,\dots,$,
+			\begin{align*}
+				P(T=k+1) &= P(X+Y=k, X>0) \\
+					        &= P(X+Y=k) - P(X+Y=k, X=0) \\
+					        &= \frac{(2\lambda)^ke^{-2\lambda}}{k!} - \frac{\lambda^k e^{-2\lambda}}{k!}.
+			\end{align*}
+			{\color{blue} 이게 왜 아니지??
+			\begin{align*}
+				P(T=k+1) &= P(X+Y=k, X>0) \\
+					        &= P(X+Y=k) - P(X+Y=k, X=0) \\
+					        &= P(X+Y=k) - P(Y=k) \\
+					        &= \frac{(2\lambda)^ke^{-2\lambda}}{k!} - \frac{\lambda^k e^{-\lambda}}{k!}.
+			\end{align*}
+			}
+		\end{proof}
+	
+	\item[b)] Show that $T$ is minimal sufficient.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            	{\color{blue} Part c) first!!} \\
+		From c), $(W,N)$ is minimal sufficient. Therefore $T$ that is one-to-one function of $(W,N)$ is also minimal sufficient.
+            	\end{proof}
+	
+	\item[c)] Does this experiment give a curved two-parameter exponential family or full rank one-parameter exponential family?
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Let $N$ is the sample size(or \# of experiments), and $W$ as follows:
+			$$ N=\begin{cases}
+			1, ~~~\text{if } X=0, \\
+			2, ~~~\text{if } X>0,
+			\end{cases} ~~~~ W=\begin{cases}
+			0, ~~~~~~~~~~\text{if } X=0, \\
+			X+Y, ~~~\text{if } X>0.
+			\end{cases} $$
+			Note that $X$ and $Y$ are from i.i.d. Poisson($\lambda$) and it satisfies the condition in Theorem 5.4. \\
+			By Theorem 5.4, the joint density is an exponential family with canonical parameter $\eta = (\log\lambda, -\lambda)$ and sufficient statistic $(X+Y, N) = (W,N)$. \\
+			Since $\eta$ does not satisfy a linear constraint, the density of $W$ and $N$ is a curved exponential family.
+			Thus, $(W,N)$ is minimal sufficient.
+            	\end{proof}
+
+	\item[d)] Is $T$ a complete sufficient statistic? \\
+		\underline{Hint}: Write $e^\lambda E_\lambda g(T)$ as a power series in $\lambda$ and derive equations for $g$ setting coefficients for $\lambda^x$ to zero.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Suppose $E_\lambda g(T) = 0$ for all $\lambda > 0$ and any function $g$. Then
+			$$ E_\lambda g(T) = g(0)e^{-\lambda} + \sum_{k=0}^\infty g(k+1)\frac{(2\lambda)^k e^{-2\lambda}-\lambda^k e^{-2\lambda}}{k!} = 0. $$
+			Multiplying $e^{2\lambda}$,
+			$$ e^{2\lambda}E_\lambda g(T) = g(0)e^{\lambda} + \sum_{k=0}^\infty \frac{g(k+1)\left(2^k-1\right)}{k!}\lambda^k = 0. $$
+			This is the power series in $\lambda$, so the coefficients of the power should be 0. ($g(0) = 0$ and $g(k+1) = 0$ for $k=1,2,\dots$.) \\
+			Note that $T \ne 1$($\because$ If $X > 0$, then $Y\ge 0$ and $T > 1$).
+			Therefore, $g(T) = 0$ thus $T$ is complete.
+            	\end{proof}
+\end{enumerate}
+
+
+
+\section{Problem 5.13}
+Consider a single two-way contingency table and define $R=N_{11}+N_{12}$ (the first row sum), $C=N_{11}+N_{21}$ (the first column sum), and $D=N_{11}+N_{22}$ (the sum of the diagonal entries).
+\begin{enumerate}
+	\item[a)] Show that the joint mass function can be written as a full rank three-parameter exponential family with $T=(R,C,D)$ as the canonical sufficient statistic.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			The contingency table be as follows:
+			\begin{table}[h]
+                            \centering
+                            \begin{tabular}{|c|c|c|}
+                            \hline
+                            $N_{11}$ & $N_{12}$  & $R$ \\ \hline
+                            $N_{21}$ & $N_{22}$ &   \\ \hline
+                            $C$ &  & $n$ \\ \hline
+                            \end{tabular}
+			\end{table}
+			
+			By representing the elements with $R,C,D, $ and $n$,
+			$$ N_{11} = (R+C+D-n)/2,~~~ N_{12} = (n-D-C+R)/2, $$
+			$$ N_{21} = (n-D-R+C)/2,~~~ N_{22} = (n+D-R-C)/2. $$
+			Thus the joint mass function is
+			\begin{align*}
+			{n \choose n_{11},\dots,n_{22}} p_{11}^{n_{11}} \cdots p_{22}^{n_{22}} &= {n \choose n_{11},\dots,n_{22}} \left(\sqrt{p_{11}}\right)^{r+c+d-n} \left(\sqrt{p_{12}}\right)^{n-d-c+r} \left(\sqrt{p_{21}}\right)^{n-d-r+c} \left(\sqrt{p_{22}}\right)^{n+d-r-c} \\
+				&= {n \choose n_{11},\dots,n_{22}} \sqrt{\frac{p_{11}p_{12}}{p_{21}p_{22}}}^r \sqrt{\frac{p_{11}p_{21}}{p_{12}p_{22}}}^c \sqrt{\frac{p_{11}p_{22}}{p_{12}p_{21}}}^d \sqrt{\frac{p_{12}p_{21}p_{22}}{p_{11}}}^n \\
+				&= {n \choose n_{11},\dots,n_{22}} \exp\left[ r\log\sqrt{\frac{p_{11}p_{12}}{p_{21}p_{22}}} + c\log\sqrt{\frac{p_{11}p_{21}}{p_{12}p_{22}}} \right. \\
+				&~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\left.+ d\log\sqrt{\frac{p_{11}p_{22}}{p_{12}p_{21}}} + n\log\sqrt{\frac{p_{12}p_{21}p_{22}}{p_{11}}} \right],
+			\end{align*}
+			where $r, c$, and $d$ are defined as before.\\
+			The density is a full-rank(3-parameter) exponential family, and the sufficient statistic $(R,C,D)$ do not satisfy a linear constraint because there is a one-to-one linear association between it and $(N_{11},N_{12},N_{21})$, and the 3 canonical parameters $\eta_r, \eta_c$, and $\eta_d$ can vary freely over $\bbR^3$.
+			{\color{blue} 마지막 부분 잘 이해 안됨,,,}
+		\end{proof}
+	
+	\item[b)] Relate the canonical parameter associated with $D$ to the "cross-product ratio" $\alpha$ defined as $\alpha = p_{11}p_{22}/(p_{12}p_{21})$.	
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		$\eta_d = \log\sqrt\alpha$
+            	\end{proof}
+	
+	\item[c)] Suppose we observe $m$ independent two-by-two contingency tables.
+		Let $n_i,~i=1,\dots,m$, denote the trials for table $i$.
+		Assume that cell probabilities for the tables may differ, but that the cross-product ratios for all $m$ tables are all the same.
+		Show that the joint mass functions form a full rank exponential family.
+		Express the sufficient statistic as a function of the variables $R_1,\dots,R_m,C_1,\dots,C_m$, and $D_1,\dots,D_m$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		The joint mass can be obtained as
+			$$ \exp\left[ \sum_{i=1}^m r_i\eta_{r,i} + \sum_{i=1}^m c_i \eta_{c,i} + \eta_d\sum_{i=1}^md_i - \sum_{i=1}^m A_i(\eta_i) \right]h(x), $$
+			which is a full-rank($2m+1$ parameter) exponential family.
+			Therefore, the complete sufficient statistic is
+			$$ T= \left( R_1,\dots,R_m, C_1,\dots,C_m, \sum_{i=1}^mD_i \right), $$
+			which is a function of $R_1,\dots,R_m,C_1,\dots,C_m$.
+            	\end{proof}
+\end{enumerate}
+
+
+
+\section{Problem 5.16}
+For an $I \times J$ contingency table with independence, the UMVU estimator of $p_{ij}$ is $\hat p_{i+} \hat p_{+j} = N_{i+}N_{+j}/n^2$.
+\begin{enumerate}
+	\item[a)] Determine the variance of this estimator, $\Var(\hat p_{i+} \hat p_{+j})$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			Since $N_{i+}$ and $N_{+j}$ are independent with
+			$$ N_{i+} \sim \text{Binomial}(n, p_{i+}), ~~~~ N_{+j} \sim \text{Binomial}(n, p_{+j}). $$
+			$E\hat p_{i+} = \frac{1}{n}EN_{i+} = p_{i+}$ and similarly, $E\hat p_{+j} = p_{+j}$.
+			\begin{align*}
+				E\hat p_{i+}^2\hat p_{+j}^2 &= \frac{1}{n^4}EN_{i+}^2N_{+j}^2 \\
+									 &= \frac{1}{n^4}\left[np_{i+}(1-p_{i+})+n^2p_{i+}^2\right] \left[np_{+j}(1-p_{+j})+n^2p_{+j}^2\right] \\
+									 &= \frac{1}{n^2}\left[p_{i+}(1-p_{i+})+np_{i+}^2\right] \left[p_{+j}(1-p_{+j})+np_{+j}^2\right].
+			\end{align*}
+			\begin{align*}
+				\therefore \Var(\hat p_{i+} \hat p_{+j}) &= E\hat p_{i+}^2\hat p_{+j}^2 - \left[ E\hat p_{i+}\hat p_{+j} \right]^2 \\
+									 &= \frac{1}{n^2} \left[p_{i+}(1-p_{i+})+np_{i+}^2\right] \left[p_{+j}(1-p_{+j})+np_{+j}^2\right] - p_{i+}^2p_{+j}^2 \\
+									 &= \frac{1}{n^2}\left[ p_{i+}(1-p_{i+})p_{+j}(1-p_{+j}) + np_{i+}(1-p_{i+})p_{+j}^2 + np_{i+}^2p_{+j}(1-p_{+j}) \right] \\
+									 &= \frac{p_{i+}(1-p_{i+})p_{+j}^2 + p_{+j}(1-p_{+j})p_{i+}^2}{n} + \frac{p_{i+}(1-p_{i+})p_{+j}(1-p_{+j})}{n^2}.
+			\end{align*}
+		\end{proof}
+	
+	\item[b)] Find the UMVU estimator of the variance in (a).
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			First, we should find the unbiased estimators in the numerator term.
+			\begin{align*}
+			EN_{i+}^2 &= np_{i+}(1-p_{i+}) + n^2p_{i+}^2 \\
+					&= np_{i+}-np_{i+}^2+n^2p_{i+}^2 \\
+					&= EN_{i+} + (n^2-n)p_{i+}^2
+			\end{align*}
+			$$ \Rightarrow E\left( \frac{N_{i+}(N_{i+}-1)}{n^2-n} \right) = p_{i+}^2, $$			
+			\begin{align*}
+				p_{i+}(1-p_{i+}) &= p_{i+} - p_{i+}^2 \\
+							&= E\frac{N_{i+}}{n} - E\left( \frac{N_{i+}(N_{i+}-1)}{n^2-n} \right) \\
+							&= E\left( \frac{N_{i+}(n-N_{i+})}{n^2-n} \right),
+			\end{align*}
+			From the above, we obtain the unbiased estimators as follows:
+			\begin{align*}
+				E\left( \frac{N_{i+}(N_{i+}-1)}{n^2-n} \right) &= p_{i+}^2, \\
+				E\left( \frac{N_{i+}(n-N_{i+})}{n^2-n} \right) &= p_{i+}(1-p_{i+}), \\
+				E\left( \frac{N_{+j}(N_{+j}-1)}{n^2-n} \right) &= p_{+j}^2, \\
+				E\left( \frac{N_{+j}(n-N_{+j})}{n^2-n} \right) &= p_{+j}(1-p_{+j}).
+			\end{align*}
+			By using these, the expectation of $\Var(\hat p_{i+} \hat p_{+j})$ is
+			\begin{align*}
+				E\left[ \Var(\hat p_{i+} \hat p_{+j}) \right] &= E\left[ \frac{p_{i+}(1-p_{i+})p_{+j}^2 + p_{+j}(1-p_{+j})p_{i+}^2}{n} + \frac{p_{i+}(1-p_{i+})p_{+j}(1-p_{+j})}{n^2} \right] \\
+					&= \frac{N_{i+}(n-N_{i+}N_{+j}(N_{+j}-1)+N_{+j}(n-N_{+j})N_{i+}(N_{i+}-1)}{n(n^2-n)^2} \\
+					&~~~~~~~~~~~~ + \frac{N_{i+}(n-N_{i+})N_{+j}(n-N_{+j})}{n^2(n^2-n)^2}. \tag{$*$}
+			\end{align*}			
+			Therefore, ($*$) is UMVU estimator of $\Var(\hat p_{i+} \hat p_{+j})$.
+            	\end{proof}
+\end{enumerate}
