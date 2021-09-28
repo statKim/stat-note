@@ -298,7 +298,7 @@
 \section{Measures}
 
 \begin{definition}[$\sigma$-algebra]
-A collection of $\calA$ of subsets of a set $\calX$ is a $\sigma$-algebra (or $\sigma$-field) if
+A collection of $\calA$ of subsets of a set $\calX$ is a {\color{blue} $\sigma$-algebra (or $\sigma$-field)} if
 \begin{enumerate}
     \item $\calX \in \calA$ and $\emptyset \in \calA$,
     \item If $A \in \calA$, then $A^c = \calX - A \in \calA$,
@@ -307,7 +307,7 @@ A collection of $\calA$ of subsets of a set $\calX$ is a $\sigma$-algebra (or $\
 \end{definition}
 
 \begin{definition}[Measure]
-A function $\mu$ on a $\sigma$-algebra $\calA$ of $\calX$ is a measure if
+A function $\mu$ on a $\sigma$-algebra $\calA$ of $\calX$ is a {\color{blue} measure} if
 \begin{enumerate}
 	\item For every $A \in \calA, ~ 0 \le \mu(A) \le \infty$; that is, $\mu: \calA \rightarrow [0, \infty]$.
 	\item (Countable Additivity) If $A_1, A_2, \dots$ are disjoint elements of $\calA$, then
@@ -349,8 +349,8 @@ If a measure $\mu$ is a probability measure, it also holds for decreasing sets (
 
 \begin{definition}[$\sigma$-finite] There is some notations and definitions about the measure.
 \begin{enumerate}	
-	\item A measure $\mu$ is finite if $\mu(\calX) < \infty$.
-	\item A measure $\mu$ is $\sigma$-finite if $\exists A_1,A_2,\dots \in \calA$ with $\mu(A_i) < \infty ~ \forall i = 1, 2, \dots$ and $\union_{i=1}^\infty A_i = \calX$.
+	\item A measure $\mu$ is {\color{blue} finite} if $\mu(\calX) < \infty$.
+	\item A measure $\mu$ is {\color{blue} $\sigma$-finite} if $\exists A_1,A_2,\dots \in \calA$ with $\mu(A_i) < \infty ~ \forall i = 1, 2, \dots$ and $\union_{i=1}^\infty A_i = \calX$.
 \end{enumerate}
 \end{definition}
 
@@ -372,13 +372,13 @@ A probability measure is $\sigma$-finite.
 \end{example}
 
 \begin{definition}[Measurable]
-    If $(\calX, \calA)$ is a measurable space and $f$ is a real-valued function on $\calX$, then $f$ is measureble if
+    If $(\calX, \calA)$ is a measurable space and $f$ is a real-valued function on $\calX$, then $f$ is {\color{blue} measurable} if
     $$ f^{-1}(B) \eqdef \{ x \in \calX : f(x) \in B \} \in \calA, $$
     for every Borel set $B$.
 \end{definition}
 
 \begin{definition}[Indicator function]
-    The indicator function $1_A$ of a set $A$ is defined as
+    The {\color{blue} indicator function} $1_A$ of a set $A$ is defined as
     $$ 
     1_A(x) = I\{x \in A\} = \begin{cases} 
                             1, & x \in A, \\
@@ -402,7 +402,7 @@ A probability measure is $\sigma$-finite.
 \end{proposition}
 
 \begin{definition}[Simple function]
-A function $f$ is simple if
+A function $f$ is {\color{blue} simple} if
 $$ f = \sum_{i=1}^m a_i 1_{A_i}, $$
 where $a_a, \dots, a_m$ are positive constants, and $A_1, \dots, A_m$ are sets in $\calA$
 \end{definition}
@@ -426,29 +426,29 @@ If $f$ is non-negative and measurable, then there exist non-negative simple func
 %     \item $|f| = f^+ + f^-$.
 %     \item A function $f$ is integrable if $\int |f| d\mu < \infty$.
 % \end{enumerate}
-A measurable function $f$ is integrable if $\int |f| d\mu < \infty$.
+A measurable function $f$ is {\color{blue} integrable} if $\int |f| d\mu < \infty$.
 \end{definition}
 
 
 %% 1.3
 \section{Events, Probabilities, and Random Variables}
 \begin{definition}[Probability space]
-If $\calE$ is a sample space,  $\calB$ is a $\sigma$-algebra of subsets of $\calX$, and $P$ is a probability measure, then the triple $(\calX, \calA, P)$ is called a  probability space.
+If $\calE$ is a sample space,  $\calB$ is a $\sigma$-algebra of subsets of $\calX$, and $P$ is a probability measure, then the triple $(\calX, \calA, P)$ is called a  {\color{blue} probability space}.
 Also $B \in \calB$ are called events, points $e \in \calE$ are called outcomes, and $P(B)$ is called the probability of B.
 \end{definition}
 
 \begin{definition}[Random variable]
-A measurable function $X: \calE \rightarrow \bbR$ is called a random variable.
+A measurable function $X: \calE \rightarrow \bbR$ is called a {\color{blue} random variable}.
 \end{definition}
 
 \begin{definition}[Distribution]
 The probability measure $P_X$ is defined by
 $$ P_X(A) = P\left(\{ e \in \calE : X(e) \in A \}\right) \overset{\mathrm{def}}{=} P(X \in A), $$ 
-for Borel sets $A$ is called distribution of $X$, and if we let $P_X := Q$, then it is denoted as $X \sim Q$, means that a random variable $X$ has distribution $Q$.
+for Borel sets $A$ is called {\color{blue} distribution} of $X$, and if we let $P_X := Q$, then it is denoted as $X \sim Q$, means that a random variable $X$ has distribution $Q$.
 \end{definition}
 
 \begin{definition}[Cumulative distribution function]
-The cumulative distribution function of $X$ is defined by 
+The {\color{blue} cumulative distribution function} of $X$ is defined by 
 $$ F_X(x) = P(X \le x) = P\left(\{ e \in \calE : X(e) \le x \}\right) = P_X\left((-\infty, x]\right),$$
 for $x \in \bbR.$
 \end{definition}
@@ -458,12 +458,12 @@ for $x \in \bbR.$
 \section{Null Sets}
 
 \begin{definition}[Null set]
-For a measure $\mu$ on the measuruable space $(\calX, \calA)$, a set $N$ is called null with respect to $\mu$ if 
+For a measure $\mu$ on the measurable space $(\calX, \calA)$, a set $N$ is called {\color{blue} null} with respect to $\mu$ if 
 $$ \mu(N) = 0. $$
 \end{definition}
 
 \begin{definition}[Almost everywhere]
-If a statement holds for $x \in \calX-N$ with $N$ null, the statement is said to hold almost everywhere (a.e.) or a.e. $\mu$.
+If a statement holds for $x \in \calX-N$ with $N$ null, the statement is said to hold {\color{blue} almost everywhere} (a.e.) or a.e. $\mu$.
 \end{definition}
 
 \begin{example}
@@ -494,7 +494,7 @@ Especially, it can be denoted that the statement holds {\em almost surely (a.s.)
 \section{Densities}
 
 \begin{definition}[Absolutely continuity]
-Let P and $\mu$ be measures on a $\sigma$-field $\calA$ of $\calX$. Then P is called absolutely continuous with respect to $\mu$, written $P \ll \mu$, if $P(A) = 0$ whenever $\mu(A) = 0$.
+Let P and $\mu$ be measures on a $\sigma$-field $\calA$ of $\calX$. Then P is called {\color{blue} absolutely continuous} with respect to $\mu$, written $P \ll \mu$, if $P(A) = 0$ whenever $\mu(A) = 0$.
 \end{definition}
 
 \begin{theorem}[Radon-Nikodym]\label{thm:radon}
@@ -503,12 +503,12 @@ $$ P(A) = \int_A f d\mu \eqdef \int f 1_A d\mu. $$
 \end{theorem}
 
 \begin{remark}
-The function $f$ in Theorem \ref{thm:radon} is called Radon-Nikodym derivitive of $P$ with respect to $\mu$, or the {\em density} of $P$ with respect to $\mu$, denoted 
+The function $f$ in Theorem \ref{thm:radon} is called Radon-Nikodym deravitive of $P$ with respect to $\mu$, or the {\em density} of $P$ with respect to $\mu$, denoted 
 $$ f = \frac{dP}{d\mu}. $$
 \end{remark}
 
 \begin{remark}
-If $X \sim P_X$ and $P_X$ is absolutely continuous with respect to $\mu$ with density $p = dP_X / d\mu$, it is called that {\em X has density p with repect to $\mu$}.
+If $X \sim P_X$ and $P_X$ is absolutely continuous with respect to $\mu$ with density $p = dP_X / d\mu$, it is called that {\em X has density p with respect to $\mu$}.
 \end{remark}
 
 \begin{example}[Absolutely continuous random variables]
@@ -540,7 +540,7 @@ If $X \sim P_X$ and $P_X$ is absolutely continuous with respect to $\mu$ with de
 \section{Expectation}
 
 \begin{definition}[Expectation]
-If $X$ is a random variable on a probability space $(\calE, \calB, P)$, then the expectation or expected value of $X$ is defined as 
+If $X$ is a random variable on a probability space $(\calE, \calB, P)$, then the {\color{blue} expectation or expected value} of $X$ is defined as 
 $$EX = \int X dP.$$
 If $X \sim P_X$, then
 $$ EX = \int x dP_X(x). $$
@@ -580,7 +580,7 @@ If $X$ and $Y$ are random variables with finite expectations, the followings are
 \end{proposition}
 
 \begin{definition}[Variance]
-The variance of a random variable $X$ with finite expectation is defined as
+The {\color{blue} variance} of a random variable $X$ with finite expectation is defined as
 $$ \Var(X) = E(X-EX)^2 = EX^2 - (EX)^2. $$
 \begin{enumerate}
 	\item If $X$ is absolutely continuous with density $p$,
@@ -591,12 +591,12 @@ $$ \Var(X) = E(X-EX)^2 = EX^2 - (EX)^2. $$
 \end{definition}
 
 \begin{definition}[Covariance]
-The covariance between two random variables $X$ and $Y$ with finite expectation is defined as
+The {\color{blue} covariance} between two random variables $X$ and $Y$ with finite expectation is defined as
 $$ \Cov(X,Y) = E(X-EX)(Y-EY) = EXY - (EX)(EY). $$
 \end{definition}
 
 \begin{definition}[Correlation]
-The correlation between two random variables $X$ and $Y$ with finite expectation is defined as
+The {\color{blue} correlation} between two random variables $X$ and $Y$ with finite expectation is defined as
 $$ \Cor(X,Y) = \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)}}, $$
 and it always lie in $[-1, 1]$.
 \end{definition}
@@ -612,7 +612,7 @@ X_1(e) \\
 \vdots \\
 X_n(e)
 \end{pmatrix}, ~~~~~ e \in \calE, $$
-is called a random vector.
+is called a {\color{blue} random vector}.
 \end{definition}
 
 \begin{remark} 
@@ -647,7 +647,7 @@ Similarly with the random variables, the notations of random vectors is directly
 \section{Covariance Matrices}
 
 \begin{definition}[Random matrix]
-	A matrix $W$ is called a random matrix if the entires $W_{ij}$ are random variables.
+	A matrix $W$ is called a {\color{blue} random matrix} if the entires $W_{ij}$ are random variables.
 \end{definition}
 
 \begin{definition}[Expectation of random matrix]
@@ -683,7 +683,7 @@ Similarly with the random variables, the notations of random vectors is directly
 
 \begin{definition}[Product measure]
 Let $(\calX, \calA, \mu)$ and $(\calY, \calB, \nu)$ are measure spaces.
-Then there exists a unique measure $\mu \times \nu$, called the product measure, on $(\calX \times \calY, \calA \lor \calB)$ such that 
+Then there exists a unique measure $\mu \times \nu$, called the {\color{blue} product measure}, on $(\calX \times \calY, \calA \lor \calB)$ such that 
 $$ (\mu \times \nu)(A \times B) = \mu(A) \nu(B), $$
 for all $A \in \calA$ and all $B \in \calB$.
 The $\sigma$-algebra $\calA \lor \calB$ is defined formally as the smallest $\sigma$-algebra containing all sets $A \times B$ with $A \in \calA$ and $B \in \calB$.
@@ -712,7 +712,7 @@ See Royden p.418(Statement) and p.421(Proof), or Durrett p.34 Theorem 1.7.2.
 
 
 \begin{definition}[Independence]
-Two random vectors, $X \in \bbR^n$ and $Y \in \bbR^m$ are independent if 
+Two random vectors, $X \in \bbR^n$ and $Y \in \bbR^m$ are {\color{blue} independent} if 
 $$ P(X \in A, Y \in B) = P(X \in A)P(Y \in B), $$
 for all Borel sets $A$ and $B$.
 
