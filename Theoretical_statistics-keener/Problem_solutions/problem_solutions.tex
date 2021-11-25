@@ -311,167 +311,37 @@
 \input{Chapter/chapter5.tex}
 
 % Chapter 6. Conditional Distributions
-\chapter{Conditional Distributions}
+\input{Chapter/chapter6.tex}
 
-\section{Problem 6.2}
-Let $X$ and $Y$ be independent random variables with cumulative distribution functions $F_X$ and $F_Y$.
-\begin{enumerate}
-	\item[a)] Assuming $Y$ is continuous, use smoothing to derive a formula expressing the cumulative distribution function of $X^2Y^2$ as the expected value of a suitable function of $X$.
-		Also, if $Y$ is absolutely continuous, give a formula for the density.
-	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-		
-		\end{proof}
-	
-	\item[b)] Suppose $X$ and $Y$ are both exponential with the same failure rate $\lambda$.
-		Find the density of $X-Y$.
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-\end{enumerate}
+% Chapter 7. 
+\chapter{Bayesian Estimation}
 
 
-
-\section{Problem 6.3}
-Suppose that $X$ and $Y$ are independent and positive. Use a smoothing argument to show that if $x\in(0,1)$, then
-\begin{equation*}
-	P\left(\frac{X}{X+Y} \le x\right) = EF_X\left(\frac{xY}{1-x}\right), \tag{6.8} 
-\end{equation*}
-where $F_X$ is the cumulative distribution function of $X$.
-\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-		
-\end{proof}
-
-
-
-\section{Problem 6.4}
-Differentiating (6.8), if $X$ is absolutely continuous with density $p_X$, then $V=X/(X+Y)$ is absolutely continuous with density
-$$ p_V(x) = E\left[\frac{Y}{(1-x)^2}p_X\left(\frac{xY}{1-x}\right)\right], ~~~~~ x\in(0,1). $$
-Use this formula to derive the beta distribution introduced in Problem 6.1, showing that if $X$ and $Y$ are independent with $X\sim \Gamma(\alpha,1)$ and $Y \sim \Gamma(\beta,1)$, then $V=X/(X+Y)$ has density
-$$ p_V(x) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1} $$
-for $x\in(0,1)$.
-\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-		
-\end{proof}
-
-
-
-\section{Problem 6.5}
-Let $X$ and $Y$ be absolutely continuous with joint density
-$$ p(x,y) = \begin{cases}
-2,~~~0<x<y<1, \\
-0,~~~\text{otherwise.}
-\end{cases} $$
-\begin{enumerate}
-	\item[a)] Find the marginal density of $X$ and the marginal density of $Y$.
-	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-		
-		\end{proof}
-	
-	\item[b)] Find the conditional density of $Y$ given $X=x$.
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-
-	\item[c)] Find $E[Y|X]$.
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-
-	\item[d)] Find $EXY$ by integration against the joint density of $X$ and $Y$.
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-
-	\item[e)] Find $EXY$ by smoothing, using the conditional expectation you found in part (c).
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-\end{enumerate}
-
-
-
-\section{Problem 6.6}
-Let $\mu$ be Lebesgue measure on $\bbR$ and let $\nu$ be counting measure on $\{0,1,\dots\}^2$.
-Suppose the joint density of $X$ and $Y$ with respect to $\mu \times \nu$ is given by
-$$ p(x,y_1,y_2) = x^2(1-x)^{y_1+y_2} $$
-for $x\in(0,1)$, $y_1 = 0,1,2,\dots,$ and $y_2 = 0,1,2,\dots$.
-\begin{enumerate}
-	\item[a)] Find the marginal density of $X$.
-	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-		
-		\end{proof}
-	
-	\item[b)] Find the conditional density of $X$ given $Y=y$ (i.e., given $Y_1=y_1$ and $Y_2=y_2$).
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-
-	\item[c)] Find $E[X|Y]$ and $E[X^2|Y]$. \\
-		\underline{Hint}: The formula
-		$$ \int_0^1 x^{\alpha-1}(1-x)^{\beta-1}dx \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)} $$
-		may be useful.
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-
-	\item[d)] Find $E[1/(4+Y_1+Y_2)]$. \\
-		\underline{Hint}: Find $EX$ using the density in part (a) and find an expression for $EX$ using smoothing and the conditional expectation in part (c).
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-\end{enumerate}
-
-
-
-\section{Problem 6.11}
-Suppose $X$ and $Y$ are independent, both absolutely continuous with common density $f$.
-Let $M=\max\{X,Y\}$ and $Z=\min\{X,Y\}$.
-Determine the conditional distribution for the pair $(X,Y)$ given $(M,Z)$.
-\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-		
-\end{proof}
-
-
-
-\section{Problem 6.12}
-Let $X$ and $Y$ be independent exponential variables with failure rate $\lambda$, so the common marginal density is $\lambda e^{-\lambda x}, ~ x>0$. Let $T=X+Y$. 
-Give a formula expressing $E[f(X,Y)|T=t]$ as a one-dimensional integral. \\
-\underline{Hint}: Review the initial example on sufficiency in Section 3.2.
-\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-		
-\end{proof}
-
-
-
-\section{Problem 6.14}
-Let $X$ and $Y$ be absolutely continuous with density $p(x,y) = e^{-x}$, if $0<y<x;~p(x,y) = 0$, otherwise.
-\begin{enumerate}
-	\item[a)] Find the marginal densities of $X$ and $Y$.
-	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-		
-		\end{proof}
-	
-	\item[b)] Compute $EY$ and $EY^2$ integrating against the marginal density of $Y$.
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-
-	\item[c)] Find the conditional density of $Y$ given $X=x$, and use it to compute $E[Y|X]$ and $E[Y^2|X]$.
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-
-	\item[d)] Find the expectations of $E[Y|X]$ and $E[Y^2|X]$ integrating against the marginal density of $X$.
-            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-            
-            	\end{proof}
-\end{enumerate}
-
-
-
-
-
-
+%\section{Problem 6.2}
+%Let $X$ and $Y$ be independent random variables with cumulative distribution functions $F_X$ and $F_Y$.
+%\begin{enumerate}
+%	\item[a)] Assuming $Y$ is continuous, use smoothing to derive a formula expressing the cumulative distribution function of $X^2Y^2$ as the expected value of a suitable function of $X$.
+%		Also, if $Y$ is absolutely continuous, give a formula for the density.
+%	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+%		
+%		\end{proof}
+%	
+%	\item[b)] Suppose $X$ and $Y$ are both exponential with the same failure rate $\lambda$.
+%		Find the density of $X-Y$.
+%            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+%            
+%            	\end{proof}
+%\end{enumerate}
+%
+%\section{Problem 6.4}
+%Differentiating (6.8), if $X$ is absolutely continuous with density $p_X$, then $V=X/(X+Y)$ is absolutely continuous with density
+%$$ p_V(x) = E\left[\frac{Y}{(1-x)^2}p_X\left(\frac{xY}{1-x}\right)\right], ~~~~~ x\in(0,1). $$
+%Use this formula to derive the beta distribution introduced in Problem 6.1, showing that if $X$ and $Y$ are independent with $X\sim \Gamma(\alpha,1)$ and $Y \sim \Gamma(\beta,1)$, then $V=X/(X+Y)$ has density
+%$$ p_V(x) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1} $$
+%for $x\in(0,1)$.
+%\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+%		
+%\end{proof}
 
 
 
