@@ -313,40 +313,34 @@
 % Chapter 6. Conditional Distributions
 \input{Chapter/chapter6.tex}
 
-% Chapter 7. 
-\chapter{Bayesian Estimation}
+% Chapter 7. Bayesian Estimation
+\input{Chapter/chapter7.tex}
+
+% Chapter 8. Large-Sample Theory
+\chapter{Large-Sample Theory}
 
 
-%\section{Problem 6.2}
-%Let $X$ and $Y$ be independent random variables with cumulative distribution functions $F_X$ and $F_Y$.
+%\section{Problem 7.6}
+%Consider a Bayesian model in which the random parameter $\Theta$ has a Bernoulli prior distribution with success probability 1/2, so $P(\Theta=0) = P(\Theta=1) = 1/2$.
+%Given $\Theta=0$, data $X$ has density $f_0$, and given $\Theta=1$, $X$ has density $f_1$.
 %\begin{enumerate}
-%	\item[a)] Assuming $Y$ is continuous, use smoothing to derive a formula expressing the cumulative distribution function of $X^2Y^2$ as the expected value of a suitable function of $X$.
-%		Also, if $Y$ is absolutely continuous, give a formula for the density.
+%	\item[a)] Find the Bayes estimate of $\Theta$ under squared error loss.
 %	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-%		
+%
 %		\end{proof}
 %	
-%	\item[b)] Suppose $X$ and $Y$ are both exponential with the same failure rate $\lambda$.
-%		Find the density of $X-Y$.
+%	\item[b)] Find the Bayes estimate of $\Theta$ if $L(\theta,d) = I\{ \theta \ne d\}$ (called {\em zero-one loss}).
 %            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-%            
+%
 %            	\end{proof}
 %\end{enumerate}
 %
-%\section{Problem 6.4}
-%Differentiating (6.8), if $X$ is absolutely continuous with density $p_X$, then $V=X/(X+Y)$ is absolutely continuous with density
-%$$ p_V(x) = E\left[\frac{Y}{(1-x)^2}p_X\left(\frac{xY}{1-x}\right)\right], ~~~~~ x\in(0,1). $$
-%Use this formula to derive the beta distribution introduced in Problem 6.1, showing that if $X$ and $Y$ are independent with $X\sim \Gamma(\alpha,1)$ and $Y \sim \Gamma(\beta,1)$, then $V=X/(X+Y)$ has density
-%$$ p_V(x) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1} $$
-%for $x\in(0,1)$.
+%\section{Problem 7.7}
+%Consider Bayesian estimation in which the parameter $\Theta$ has a standard exponential distribution, so $\lambda(\theta) = e^{-\theta}, ~ \theta >0$, and given $\Theta=\theta, ~ X_1,\dots,X_n$ are i.i.d. from an exponential distribution with failure rate $\theta$.
+%Determine the Bayes estimator of $\Theta$ if the loss function is $L(\theta,d)=(d-\theta)^2/d$.
 %\begin{proof}[\underline{\textbf{Solution}}] $\newline$
-%		
+%
 %\end{proof}
-
-
-
-
-
 
 
 

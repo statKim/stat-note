@@ -1,0 +1,59 @@
+% Chapter 7. Bayesian Estimation
+\chapter{Bayesian Estimation}
+
+
+\section{Problem 7.6}
+Consider a Bayesian model in which the random parameter $\Theta$ has a Bernoulli prior distribution with success probability 1/2, so $P(\Theta=0) = P(\Theta=1) = 1/2$.
+Given $\Theta=0$, data $X$ has density $f_0$, and given $\Theta=1$, $X$ has density $f_1$.
+\begin{enumerate}
+	\item[a)] Find the Bayes estimate of $\Theta$ under squared error loss.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			First, we should find the posterior distribution.
+			Since $\Theta \sim Bernoulli(1/2)$ and $X|\Theta=\theta \sim f_\theta$, the joint density is
+			$$ p(\theta,x) = \lambda(\theta)p_\theta(x) = \frac{1}{2}f_\theta(x), $$
+			the marginal density is
+			$$ q(x) = \sum_\theta p(\theta,x) = \frac{f_0(x)+f_1(x)}{2}, $$
+			and the posterior density is
+			\begin{align*}
+			\lambda(\theta|x) = \frac{\lambda(\theta)p_\theta(x)}{q(x)} &= \frac{f_\theta(x)}{f_0(x)+f_1(x)}, ~~~ \theta = 0, 1 \\
+				&\sim Bernoulli\left( \frac{f_1(x)}{f_0(x)+f_1(x)} \right).
+			\end{align*}
+			Note that the Bayes estimator under the squared loss is the conditional mean (i.e. posterior mean) is
+			$$ \delta_\Lambda = E[\Theta|X] = \frac{f_1(X)}{f_0(X)+f_1(X)} $$
+		\end{proof}
+	
+	\item[b)] Find the Bayes estimate of $\Theta$ if $L(\theta,d) = I\{ \theta \ne d\}$ (called {\em zero-one loss}).
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+            		Define the success probability of posterior distribution $p =  \frac{f_1(x)}{f_0(x)+f_1(x)}$.
+			Under the zero-one loss, the estimator minimizing the loss be as
+			$$ \begin{cases}
+				1, ~~~ & p > \frac{1}{2}, \\
+				0, ~~~ & p < \frac{1}{2},
+			\end{cases} $$
+			and when $p=1/2$, either is optimal. \\
+			Therefore, the Bayes estimator under the zero-one loss is
+			$$ \delta_\Lambda = \begin{cases}
+			1, ~~~ & f_1(X) > f_0(X), \\
+			0, ~~~ & f_1(X) < f_0(X).
+			\end{cases} $$
+            	\end{proof}
+\end{enumerate}
+
+\section{Problem 7.7}
+Consider Bayesian estimation in which the parameter $\Theta$ has a standard exponential distribution, so $\lambda(\theta) = e^{-\theta}, ~ \theta >0$, and given $\Theta=\theta, ~ X_1,\dots,X_n$ are i.i.d. from an exponential distribution with failure rate $\theta$.
+Determine the Bayes estimator of $\Theta$ if the loss function is $L(\theta,d)=(d-\theta)^2/d$.
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+	By Theorem 7.1, the Bayes estimator should be minimizer of the conditional expected loss as
+	$$ E\left[ \frac{(d-\Theta)^2}{d}\Big|X=x \right] = d-2E[\Theta|X=x] + \frac{E[\Theta^2|X=x]}{d}. $$
+	Taking the derivative,
+	$$ 1-\frac{E[\Theta^2|X=x]}{d^2} = 0 \Rightarrow \delta_\Lambda = \sqrt{E[\Theta^2|X]}. $$
+	
+	Since $X_i|\Theta=\theta$ are i.i.d. $Exp(\theta)$, the posterior density is
+	$$ \lambda(\theta|x) \propto \lambda(\theta)p(x_1,\dots,x_n|\theta) \propto \theta^n e^{-(\sum_ix_i+1)\theta}, $$
+	which is the density of $\Gamma \left( n+1, \frac{1}{\sum_i x_i+1} \right)$.
+	
+	Using the expectation and variance formulas of Gamma distribution, the 2nd moment of the posterior distribution can be obtained as
+	$$ E[\Theta^2|X] = \frac{n+1}{(\sum_iX_i+1)^2} + \left( \frac{n+1}{\sum_iX_i+1} \right)^2 = \frac{(n+1)(n+2)}{(\sum_iX_i+1)^2}. $$
+	Thus, the Bayes estimator is
+	$$ \delta_\Lambda =  \sqrt{ \frac{(n+1)(n+2)}{(\sum_iX_i+1)^2}}. $$
+\end{proof}
