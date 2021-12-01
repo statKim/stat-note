@@ -1,0 +1,134 @@
+% Chapter 8. Large-Sample Theory
+\chapter{Large-Sample Theory}
+
+
+\section{Problem 8.1}
+Random variables $X_1,X_2,\dots$ are called "$m$-dependent" if $X_i$ and $X_j$ are independent whenever $|i-j| \ge m$.
+Suppose $X_1,X_2,\dots$ are $m$-dependent with $EX_1=EX_2=\cdots=\xi$ and $\Var(X_1)=\Var(X_2)=\cdots=\sigma^2<\infty$.
+Let $\overline{X}_n = (X_1+\cdots + X_n)/n$. Show that $\overline{X}_n \overset{p}{\rightarrow} \xi$ as $n\rightarrow \infty$. \\
+\underline{Hint}: You should be able to bound $\Cov(X_i,X_j)$ and $\Var(\overline{X}_n)$.
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+By Chebyshev's inequality, 
+$$ P\big(|\overline X_n - \xi| > \epsilon \big) \le \frac{E|\overline X_n-\xi|^2}{\epsilon^2}, $$
+for every $\epsilon > 0$.
+Thus, our claim is $E|\overline X_n-\xi|^2 \rightarrow 0$ as $n\rightarrow \infty$.
+
+By the covariance inequality (See (4.11)), $|\Cov(X_i,X_j)| \le \sqrt{\Var(X_i)}\sqrt{\Var(X_j)} = \sigma^2$.
+Since $X_1,X_2,\dots$ are $m$-dependent, for any $i$,
+$$ \sum_{j=1}^n \Cov(X_i,X_j) = \sum_{j:|i-j|<m} \Cov(X_i,X_j) \le (2m-1)\sigma^2. $$
+By using this, we can obtain
+\begin{align*}
+E|\overline X_n-\xi|^2 = \Var(\overline X_n) = \frac{1}{n^2}\Var(X_1 + \cdots + X_n) &= \frac{1}{n^2}\sum_i\sum_j\Cov(X_i,X_j) \\
+& \le \frac{1}{n^2}\sum_i (2m-1)\sigma^2 \\
+& = \frac{(2m-1)\sigma^2}{n} \\
+&\rightarrow 0 ~~ \text{as} ~ n\rightarrow \infty.
+\end{align*}
+Therefore, the bound of Chebyshev's inequality goes to 0 as $n\rightarrow \infty$, and we obtain $\overline X_n \overset{p}{\rightarrow} \xi$.
+\end{proof}
+
+
+\section{Problem 8.5}
+Let $X_1,\dots,X_n$ be i.i.d. with common density $f_\theta(x) = (x-\theta)^+ e^{\theta-x}$.
+Show that $M_n = \min\{X_1,\dots,X_n\}$ is a consistent estimator of $\theta$, and determine the limiting distribution for $\sqrt{n}(M_n-\theta)$.
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$ \vspace{-0.5cm}
+\begin{enumerate}
+\item[(i)] \underline{Consistency} \\
+For $m > \theta$,
+\begin{align*}
+	P(X_i > m) = \int_{m}^\infty (x-\theta)e^{\theta - x}dx &= \int_{m-\theta}^\infty t e^{-t}dt \\
+		&= -te^{-t}\Big|_{m-\theta}^\infty + \int_{m-\theta}^\infty e^{-t}dt \\
+		&= (m-\theta)e^{-(m-\theta)} + e^{-(m-\theta)}  \\
+		&= (m-\theta+1)e^{-(m-\theta)}.
+\end{align*}
+Then,
+$$ P(M_n > m) = P(\min\{X_1,\dots,X_n\} > m) = \Big[P(X_1 > m)\Big]^n = \Big[ (m-\theta+1)e^{-(m-\theta)} \Big]^n. $$
+Now, plug in $m = \theta+\epsilon > \theta$,
+$$ P(M_n - \theta > \epsilon) = \Big[ (1+\epsilon)e^{-\epsilon} \Big]^n \rightarrow 0 ~~\text{as}~~ n\rightarrow\infty. $$
+Therefore $M_n$ is a consistent estimator of $\theta$.
+
+\item[(ii)] \underline{Limiting distribution} \\
+From (i), let $\epsilon = x/\sqrt{n}$,
+$$ P\left(M_n-\theta > \frac{x}{\sqrt{n}}\right) = \left[ \left(1+\frac{x}{\sqrt{n}} \right) e^{-\frac{x}{\sqrt{n}}} \right]^n. $$
+To derive the limit of RHS, by using the fact that $[(1+u)^2e^{-u}]/u^2 \underset{n \rightarrow \infty}{\rightarrow} -1/2$ (It can be evaluated by L'Hôpital's rule.), then
+$$ n\left[ \left(1+\frac{x}{\sqrt{n}} \right) e^{-\frac{x}{\sqrt{n}}} - 1 \right] = x^2\frac{ \big(1+x/\sqrt{n} \big) e^{-x/\sqrt{n}} - 1}{(x/\sqrt{n})^2} \rightarrow -\frac{x^2}{2}~~\text{as}~~ n \rightarrow \infty.$$
+By using this,
+$$ P\left(\sqrt{n}(M_n-\theta) > x \right) = \left[ \left(1+\frac{x}{\sqrt{n}} \right) e^{-\frac{x}{\sqrt{n}}} \right]^n \approx \left[ 1+\frac{-x^2/2}{n} \right]^n \rightarrow e^{-x^2/2}~~\text{as}~~ n \rightarrow \infty. $$
+Therefore $\sqrt{n}(M_n-\theta) \Rightarrow Y$ where $Y$ has the cumulative distribution function $P(Y\le y) = 1-e^{-y^2/2}, ~ y>0$. (Weibull distribution)
+\end{enumerate}
+\end{proof}
+
+
+\section{Problem 8.6}
+Prove that if $A_n \overset{p}{\rightarrow} 1$ and $Y_n \Rightarrow Y$, then $A_nY_n \Rightarrow Y$. (This is a special case of Theorem 8.13.)
+\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+Denote $F$ be the $cdf$ of $Y$.
+Let $y$ be continuity point of $F$, and we only prove when $y>0$.
+If $y+\epsilon$ also continuity point of $F$, then 
+\begin{align*}
+\{A_nY_n \le y\} &\subset \{Y_n \le y+\epsilon\} \cup \{A_n \le y/(y+\epsilon)\} \\
+P(A_nY_n \le y) &\le P(Y_n \le y+\epsilon) + P(A_n \le y/(y+\epsilon)) \rightarrow F(y+\epsilon) ~~\text{as}~~ n \rightarrow \infty.
+\end{align*}
+Then, the $\limsup$ of LHS have the following bound,
+$$ \limsup_n P(A_nY_n \le y) \le F(y+\epsilon) . $$
+Since $F$ is continuous at $y$ and $\epsilon$ is arbitrary, by letting $\epsilon \rightarrow 0$, we can obtain
+$$ \limsup_n P(A_nY_n \le y) \le F(y).  $$
+
+Next, if $y-\epsilon$ be positive and continuous point of $F$, then 
+$$ P(A_nY_n \le y) \ge P(Y_n \le y-\epsilon) - P(A_n < 0~\text{or}~A_n \ge y/(y-\epsilon)) \rightarrow F(y-\epsilon) ~~\text{as}~~ n \rightarrow \infty. $$
+{\color{blue} (RHS를 천천히 생각해보면 이해할 수 있음!!! 전체 경우에서 특정 케이스를 제외하는 거라고 생각하자!!) }\\
+Then, the $\liminf$ of LHS have the following bound,
+$$ \liminf_n P(A_nY_n \le y) \ge F(y-\epsilon). $$
+And then letting $\epsilon \rightarrow 0$, we can obtain
+$$ \liminf_n P(A_nY_n \le y) \ge F(y).  $$
+Finally, we obtain
+$$ F(y) \le \liminf_n P(A_nY_n \le y) \le \limsup_n P(A_nY_n \le y) \le F(y), $$
+thus $\lim_n P(A_nY_n \le y) = F(y) $ which implies $A_nY_n \Rightarrow Y$ when $y>0$. \\
+When $y<0$ and $y=0$, it can show using similar arguments.
+\end{proof}
+
+
+\section{Problem 8.24}
+Suppose $X_1,\dots,X_n$ are i.i.d. $N(0,\sigma^2)$, and let $M$ be the median of $|X_1|,\dots,|X_n|$.
+\begin{enumerate}
+	\item[a)] Find $c \in \bbR$ so that $\tilde{\sigma} = cM$ is a consistent estimator of $\sigma$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			The cumulative distribution function of $|X_i|$ is
+			$$ P(|X_i| \le x) = \Phi\left( \frac{x}{\sigma} \right) - \Phi\left( -\frac{x}{\sigma} \right) = 2\Phi\left( \frac{x}{\sigma} \right) - 1, $$
+			and then its density is $ \frac{2}{\sigma}\phi(x/\sigma) $. \\
+			From the above $cdf$, the median of the random variable $|X_i|$ is is obtained as
+			$$ 2\Phi\left( \frac{x}{\sigma} \right) - 1 = \frac{1}{2} \Leftrightarrow \Phi\left( \frac{x}{\sigma} \right) = \frac{3}{4} $$
+			$$ \therefore ~\text{the median of } |X_i| = \Phi^{-1}\left( \frac{3}{4} \right) \cdot \sigma = 0.6745\sigma. $$
+			Since $\tilde\sigma=cM$ ($M$ is the sample median) is consistent for $\sigma$, it should be satisfy
+			$$ \tilde\sigma = cM \overset{p}{\rightarrow} c\cdot 0.6745\sigma. $$
+			Therefore $c = 1/0.6745 = 1.4826$.
+		\end{proof}
+	
+	\item[b)] Determine the limiting distribution for $\sqrt{n}(\tilde{\sigma}-\sigma)$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			By (8.5), 
+			$$ \sqrt{n}(M-0.6745\sigma) \Rightarrow N\left( 0, \frac{1}{4\cdot\left[ \frac{2}{\sigma}\phi(0.6745\sigma) \right]^2} \right) = N(0,0.6189\sigma^2). $$
+			$$ \therefore \sqrt{n}(\tilde\sigma - \sigma) \Rightarrow N(0,1.4826^2\cdot 0.6189\sigma^2) = N(0, 1.3604\sigma^2). $$
+            	\end{proof}
+	
+	\item[c)] Find the maximum likelihood estimator $\hat\sigma$ of $\sigma$ and determine the limiting distribution for $\sqrt{n}(\hat\sigma - \sigma)$.
+	       	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			The likelihood and log-likelihood function with respect to $\sigma$ is
+			$$ L(\sigma) = \left( \frac{1}{\sqrt{2\pi}\sigma} \right)^n\exp\left( -\frac{\sum_ix_i^2}{2\sigma^2} \right),~~~~~ l(\sigma) = -\frac{1}{2\sigma^2}\sum_i x_i^2 - n\log(\sqrt{2\pi}\sigma). $$
+			Taking a derivative to 0,
+			$$ \frac{\partial l(\sigma)}{\partial \sigma} = \sigma^{-3}\sum_ix_i^2 - \frac{n}{\sigma} = 0. $$
+			Therefore, the MLE of $\sigma$ is $\sqrt{\sum_ix_i^2 / n}$. (Also, the MLE of $\sigma^2$ is $\sum_ix_i^2 / n$ by the similar way.)  \\
+			To derive the limiting distribution, we first evaluate the variance of $\hat\sigma^2$.
+			By using the fact that $EX_i^4 = 3\sigma^4$ (It can be evaluated integrating by parts),
+			$$ \Var(\hat\sigma^2) = \frac{1}{n^2}n\Var(X_i^2) = \frac{1}{n}\Big( EX_i^4 - [EX_i^2]^2 \Big) = \frac{1}{n}[3\sigma^4 - (\sigma^2)^2] = \frac{2\sigma^4}{n}. $$
+			Thus
+			$$ \sqrt{n}(\hat\sigma^2 - \sigma^2) \Rightarrow N(0,2\sigma^4). $$
+			By the delta method with $g(\theta) = \sqrt{\theta}$,
+			$$ \sqrt{n}(\hat\sigma - \sigma) \Rightarrow N\left(0, \left(\frac{1}{2\sqrt{\sigma^2}}\right)^2\cdot2\sigma^4 \right) = N\left( 0,\frac{\sigma^2}{2} \right). $$
+		\end{proof}
+	
+	\item[d)] Determine the asymptotic relative efficiency of $\tilde\sigma$ with respect to $\hat\sigma$.
+            	\begin{proof}[\underline{\textbf{Solution}}] $\newline$
+			The asymptotic relative efficiency is
+			$$ ARE = \frac{\Var(\hat\sigma)}{\Var(\tilde\sigma)} = \frac{\sigma^2/2}{1.3604\sigma^2} = 0.3675. $$
+            	\end{proof}
+\end{enumerate}
